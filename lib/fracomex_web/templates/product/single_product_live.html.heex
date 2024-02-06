@@ -1,0 +1,170 @@
+<% family_caption = 
+	cond do
+		is_nil(@item.family) ->
+			"famille"
+		true -> 
+			"#{@item.family.caption}"
+	end
+%>
+
+<% sub_family_caption = 
+	cond do 
+		is_nil(@item.sub_family) ->
+			"sous-famille"
+		true -> 
+			"#{@item.sub_family.caption}"
+	end 
+%>
+
+<section class="top-section p-4">
+	<div class="container px-4 px-lg-5 my-5" id="shop-banner">
+		<div class="text-center">
+			<h1 class="" style="word-wrap: anywhere;"><%= @item.caption %> </h1>
+			<ol style="display: flex; text-align: center;">
+				<li>
+					<a 
+						data-phx-link="redirect" 
+						data-phx-link-state="push"
+						href={Routes.product_path(@socket, :index)}
+					>
+						<span>Boutique</span>
+					</a>
+				</li>
+			
+				<li>
+					<%= if family_caption != "famille" do %>
+						<a 
+							data-phx-link="redirect" 
+							data-phx-link-state="push"
+							href={Routes.product_path(@socket, :family, family_caption)}
+						>
+							<span><%= family_caption %></span>
+						</a>
+					<% end %>
+				</li>
+				
+				<li>
+					<%= if sub_family_caption != "sous-famille" do %>
+						<a 
+							data-phx-link="redirect" 
+							data-phx-link-state="push"
+							href={Routes.product_path(@socket, :sub_family, family_caption, sub_family_caption)}
+						>
+							<span><%= sub_family_caption %></span>
+						</a>
+					<% end %>
+				</li>
+
+				<li style="max-width: 70%;">
+					<span><%= @item.caption %></span>
+				</li>
+			</ol>
+		</div>
+	</div>
+</section>
+<!--new-arrivals start -->
+<section id="product-single" class="product-single">
+	<main class="container">
+		<p class="all-alert alert alert-info animated fadeInRight" role="alert"
+		phx-click="lv:clear-flash"
+		phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+	
+		<p class="all-alert alert alert-danger animated fadeInRight" role="alert"
+			phx-click="lv:clear-flash"
+			phx-value-key="error"><%= live_flash(@flash, :error) %></p>
+	</main>
+	<div class="container">
+		<div class="section-header">
+		</div><!--/.section-header-->
+		<div class="new-arrivals-content">
+			<div class="row">
+				<div class="col-md-6 col-sm-8">
+					<div class="single-product">
+						<div class="single-product-bg">
+
+							<%= if not is_nil(@item) do %>
+								<img src={Routes.static_path(@socket, "/images/big-items/#{@item.image}")} alt="product_img">
+							<% end %>
+
+							<div hidden class="sale bg-1">
+								<p>Promotions</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<% real_stock = 
+					@item.real_stock 
+					|> Decimal.to_float()
+					|> trunc() 
+				%>
+
+				<div class="col-md-6 col-sm-8">
+					<form phx-submit="add-product-to-cart">
+						<input type="hidden" name="item_id" value={@item.id}>
+						<div class="details">
+							<%= if not is_nil(@item) do %>
+								<% family_caption = if not is_nil(@item.family), do: @item.family.caption, else: "Aucune" %>
+								<% sub_family_caption = if not is_nil(@item.sub_family), do: @item.sub_family.caption, else: "Aucune" %>
+								<h2 class="details-product-name" style="word-wrap: anywhere; font-size: 26px;"><%= String.capitalize(@item.caption) %> </h2>
+								<p><b>Catégorie:</b> <%= family_caption %></p>
+								<p><b>Sous-catégorie:</b> <%= sub_family_caption %></p>
+								<%= if Decimal.to_integer(@item.real_stock) > 0 do %><p><b style="color: black;">Disponible en stock</b></p><% end %>
+								<h3 class="details-product-price"><%= Fracomex.Utilities.price_format(@item.sale_price_vat_excluded) %> €</h3>
+								<div class="row">
+
+									<%= if real_stock > 0 do %>
+										<div class="col-md-2 col-sm-4">
+											<div class="counter">
+												<span 
+													class="down" 
+													phx-click="dec-button" 
+													phx-value-item_id={@item.id}
+													phx-value-quantity={@quantity} 
+													style={"#{if @quantity < 2, do: "opacity: 0; cursor: auto;", else: "opacity: 1"}"}>-
+												</span>
+													<input type="text" value={@quantity} name="quantity">
+												<span 
+													class="up" 
+													phx-click="inc-button" 
+													phx-value-item_id={@item.id}
+													phx-value-quantity={@quantity}>+
+												</span>
+											</div>
+										</div>
+									<% end %>
+
+								</div>
+							<% end %>
+						</div>
+						<!-- 
+							phx-click="add-product-to-cart"
+							phx-value-item_id = {@item.id}
+						-->
+					
+
+						<%= if real_stock < 1 do %>
+							<div class="out-of-stock mt-5">
+								<span class="lnr lnr-rocket"></span>
+								<p>Rupture de stock</p>
+							</div>
+						<% else %>
+							<button 
+								type="submit"
+								class="button-cart product-add-cart" 
+								style={"#{if @quantity < 1, do: "opacity: 0; cursor: auto;", else: "opacity: 1"}"}
+							>	
+								<span class="lnr lnr-cart"></span>
+								<span class="single_product_addtocart">Ajouter au panier</span>
+							</button>
+						<% end %>						
+						
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div><!--/.container-->
+
+</section><!--/.new-arrivals-->
+<!--new-arrivals end -->

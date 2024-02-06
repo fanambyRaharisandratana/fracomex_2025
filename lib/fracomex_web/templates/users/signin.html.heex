@@ -1,0 +1,98 @@
+<div class="container" style="margin-top: 15rem; margin-bottom: 10rem;">
+    <div class="row">
+		<div class="col-md-12">	
+			<div class="card shadow login">		
+    			<h2 class="text-center mt-4">Connexion</h2>
+				<p class="all-alert alert fadeInRight alert-info" role="alert" style="margin-top: 15px;"><%= get_flash(@conn, :info) %></p>
+				<p class="all-alert alert fadeInRight alert-danger" role="alert" style="margin-top: 15px; text-align: center;"><%= get_flash(@conn, :error) %></p>
+				<div class="card-body">
+					<%= form_for @changeset, Routes.users_path(@conn, :submit_signin), fn f -> %>
+						<div class="row mb-0 p-4">
+							<div class="col-md-12">
+								<label for="mail_address">Adresse e-mail</label>	
+								<% 
+								{email_error, email_validity} = cond do
+									not is_nil(@changeset.action) and @changeset.errors[:mail_address] ->
+										{error, _} = @changeset.errors[:mail_address]
+										{error, "is-invalid"}
+									not is_nil(@changeset.action) and is_nil(@changeset.errors[:mail_address]) ->
+										{"", "is-valid"}
+									true ->
+										{"", ""}
+									end
+								%>	
+								<%= text_input f, :mail_address, class: "form-control #{email_validity}", placeholder: "" %>
+								<div class="invalid-feedback">
+									<%= email_error %>
+								</div>
+							</div>
+						</div>
+						<div class="row mb-2 p-4">
+							<div class="col-md-12">
+								<label for="password">Mot de passe</label>	
+								<% 
+								{password_error, password_validity} = cond do
+									not is_nil(@changeset.action) and @changeset.errors[:password] ->
+										{error, _} = @changeset.errors[:password]
+										{error, "is-invalid"}
+									not is_nil(@changeset.action) and is_nil(@changeset.errors[:password]) ->
+										{"", ""}
+									true ->
+										{"", ""}
+									end
+								%>	
+								<div class="input-group">
+									<%= password_input f, :password, id: "password", class: "form-control #{password_validity}", placeholder: "", aria_describedby: "inputGroupPrepend"%>
+        							<div class="input-group-append">
+          								<span class="input-group-text"><i class="far fa-eye p-2" id="togglePassword" style="cursor: pointer"></i></span>
+        							</div>
+									<div class="invalid-feedback">
+										<%= password_error %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row text-center">
+								<% 
+								{invalid_account_error, _} = cond do
+									not is_nil(@changeset.action) and @changeset.errors[:invalid_account] ->
+										{error, _} = @changeset.errors[:invalid_account]
+										{error, ""}
+									not is_nil(@changeset.action) and is_nil(@changeset.errors[:invalid_account]) ->
+										{"", ""}
+									true ->
+										{"", ""}
+									end
+									account_is_invalid = cond do
+										not is_nil(@changeset.action) and @changeset.errors[:invalid_account] ->
+											true
+										true ->
+											false
+									end
+								%>	
+							<div class="invalid-feedback" style="display: block; margin-bot: 10px !important;">
+								<%= invalid_account_error %>
+								<%= if account_is_invalid do %>
+									<br/>
+									Vérifiez votre boîte mail ou <a href={Routes.users_path(@conn, :resend_confirmation_mail)} style="font-size: 0.875em;color: #dc3545;text-decoration: underline;">renvoyez le lien de confirmation</a> <br/>
+								<% end %>
+							</div>
+						</div>
+						<div class="row text-left">
+							<a class="forgot" style="margin-left: 30px;" href={Routes.users_path(@conn, :forgot_password)}>Mot de passe oublié?</a>
+						</div>
+						<div class="row mb-4 text-center">
+							<%= submit "CONNEXION", class: "btn-cart product-add-cart"%>
+						</div>
+						<div class="row mb-2 text-center">
+							Vous n’avez pas de compte?
+							<a href={Routes.users_path(@conn, :signup)}>
+							<span class="single_product_addtocart">Inscrivez-vous</span>	
+							</a>
+						</div>
+					<% end %>
+				</div>
+			</div> 
+		</div>   
+	</div>
+</div>

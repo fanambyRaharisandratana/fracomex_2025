@@ -1,0 +1,97 @@
+
+  
+		
+		
+		<!--all arrivals start -->
+		<section id="new-arrivals" class="all-product">
+			<div class="container">
+				<div class="section-header">
+				<h1 class="title-section">ARRIVAGES</h1>
+			</div><!--/.section-header-->
+
+			<div class="container" style="margin: 2rem 0 -2rem 0">
+				<p class="all-alert alert animated fadeInRight alert-info" role="alert"><%= get_flash(@conn, :info_panier) %></p>
+				<p class="all-alert alert animated fadeInRight alert-danger" role="alert"><%= get_flash(@conn, :error_panier) %></p>
+			</div>
+
+				<div class="all-product-content">
+					<div class="row">
+					<%= for item <- @items do %>
+						<% family_caption = 
+							cond do
+								is_nil(item.family) ->
+									"famille"
+								true -> 
+									"#{item.family.caption}"
+							end
+						%>
+
+						<% sub_family_caption = 
+							cond do 
+								is_nil(item.sub_family) ->
+									"sous-famille"
+								true -> 
+									"#{item.sub_family.caption}"
+							end 
+						%>
+						<div class="col-md-3 col-sm-4">
+							<div class={"details-product-#{item.id}"} id="details">
+							<a href={Routes.product_path(@conn, :product_details, family_caption, sub_family_caption, "#{item.caption}", item.id)} class={"product-#{item.id}"} >
+								<div class="single-product-bg shadow" id={"product-#{item.id}"} data-product-id={item.id}>
+									<img src={Routes.static_path(@conn, "/images/big-items/#{item.image}")} alt={item.image}>
+									<div class="single-product-bg-overlay"></div>
+									<div class="sale bg-1" hidden>
+										<p hidden><%= Enum.count(@items) %> news</p>
+										<p>Arrivage</p>
+									</div>
+									<!--product_title-->
+								<div class="product-name" id={"name-#{item.id}"}>	
+								<a class="a-product-name" href="#"><%= String.capitalize(item.caption) %></a>
+								</div>
+								<!--product_price-->
+								<div class="product-price" id={"price-#{item.id}"}>
+								<p class="p-product-price"><%= Fracomex.Utilities.price_format(item.sale_price_vat_excluded) %> €</p>
+								</div>
+
+								<% real_stock = 
+									item.real_stock 
+									|> Decimal.to_float()
+									|> trunc() 
+								%>
+
+								<%= if real_stock > 0 do %>
+									<div class="new-arrival-cart">
+
+										<form action={:add_to_cart} method="post">
+											<input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
+											<input type="hidden" name="id" value={item.id}>
+											<p class="add-to-cart">
+												<span class="lnr lnr-cart"></span>
+												<button type="submit" class="addtocart">Ajouter au panier</button>
+											</p>
+										</form>
+
+										
+										<!--p class="arrival-review pull-right">
+											<span class="lnr lnr-heart"></span>
+											<span class="lnr lnr-frame-expand" title="Zoom"></span>
+										</p-->
+									</div>
+								<% else %>
+									<div class="out-of-stock-ribbon">
+										<p style="font-size: 1rem;"></p>
+									</div>
+								<% end %>
+									
+								</div>
+							</a>	
+							</div>
+							
+						</div>
+					<% end %>
+					</div>
+				</div>
+			</div><!--/.container-->
+		
+		</section><!--/.new-arrivals-->
+		<!--all-arrivals end -->

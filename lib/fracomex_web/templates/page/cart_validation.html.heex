@@ -1,0 +1,59 @@
+<section class="top-section p-4">
+            <div class="container px-4 px-lg-5 my-5" id="shop-banner">
+                <div class="text-center">
+                    <h1 class="">Validation de votre panier</h1>
+                </div>
+            </div>
+</section>
+<div class="container" style="margin-top: 5rem; margin-bottom: 5rem;">
+    <div class="row">
+		<div class="col-md-12">	
+			 <table class="table align-middle checkout">
+				<thead class="head-table">
+					<tr>
+					<th scope="col">Produits</th>
+					<th scope="col" class="text-center">Quantité</th>
+					<th scope="col" class="text-center">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+				<%= for cart_item <- @cart_items do %>
+					<tr class="validate-checkout">
+						<td class="cart-validation-td">
+							<div class="order-item-container">
+								<img src={Routes.static_path(@conn, "/images/big-items/#{cart_item[:item].image}")} alt="" width="50" height="50">
+								<p><%= String.capitalize(cart_item[:item].caption) %></p>
+							</div>
+						</td>
+						<td class="item-qty cart-validation-td"><%= cart_item[:quantity] %></td>
+						<td class="item-price cart-validation-td"><%= Fracomex.Utilities.price_format(cart_item[:item].sale_price_vat_excluded) %> €</td>
+					</tr>
+				<% end %>
+				</tbody>
+				<tfoot class="foot-table">
+					<tr class="text-offset">
+					<td colspan="2" class="label-subtotal">Sous-total :</td>
+					<td class="subtotal"><%= Fracomex.Utilities.price_format(Decimal.new("148.90")) %> €</td>
+					</tr>
+					<tr class="text-offset">
+					<td colspan="2" class="label-payement">Moyen de paiement :</td>
+					<td class="mod-payement">E-transactions payement</td>
+					</tr>
+					<tr class="text-offset">
+					<td colspan="2" class="label-total">Total :</td>
+					<td class="total"><%= Fracomex.Utilities.price_format(Decimal.new("148.90")) %> €</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div> 
+	</div>
+	<div class="row">
+		<div class="col-md-12 mb-4">	
+			<h5 class="link-info">Vos données personnelles seront utilisées pour le traitement de votre commande, vous accompagner au cours de votre visite du site web, et pour d'autres raisons décrites dans notre <a href="/" class="link-pc">politique de confidentialité</a></h5>
+		</div> 
+		<h5 class="link-cgv"><input type="checkbox" class="text-start" style="width: 4%;"/>J'ai lu et j'accepte les <a href="/" class="link-to-cgv">condition générales</a></h5>
+		<button class="button-cart validate-cart">
+				<a href="/validation-commande" class="validate-cart"><span class="single_product_addtocart">Passer à la commande</span></a>
+		</button>
+	</div>
+</div>
