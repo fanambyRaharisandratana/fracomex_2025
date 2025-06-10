@@ -166,9 +166,9 @@
 									</a>
 								</li>
 
-								<%= for family <- Fracomex.Products.list_limited_families do %>
+								<%= for family <- Fracomex.Products.list_all_families do %> <!-- Added the rest of the category in header menu page d'acceuil fracomex - Ravo-->
 									<li class="scroll in-top">
-										<a href={Routes.product_path(@conn, :family, family.caption)} style={"color: #{if family.id == @selected_family_id and String.contains?(@conn.request_path, "/boutique/"), do: "#e41201"};"}>
+										<a href={Routes.product_path(@conn, :family, family.caption)} style={"color: #{if family.id == @selected_family_id and String.contains?(@conn.request_path, "/boutique/"), do: "#000"};"}> <!-- Change the color "#e41201" to "#000" when current - Ravo-->
 											<%= String.capitalize(family.caption) %>
 										</a>
 									</li>
@@ -252,6 +252,7 @@
 			</div>
 		</header>
     <%= @inner_content %>
+
 	<!--prefooter start -->
 		<section id="prefooter"  class="prefooter">
 			<div class="container">
@@ -260,18 +261,13 @@
 						<div class=" col-md-4 col-sm-6 col-xs-12">
 							<div class="hm-footer-widget">
 								<div class="hm-foot-title">
-									<h4 class="primary-color mb-2">Informations</h4>
+									<h4 class="primary-color">Informations </h4>
 									
 								</div>
 								<div class="hm-foot-menu">
 									<p class="mb-4">
 									Entreprise d'électricité générale et professionnelle, luminaires, plomberie, Sanitaire, Peinture, Serrurerie, Quincaillerie.
 									</p>
-									Retrouvez-nous sur
-									<div class="footer-social">
-										<a href="https://www.facebook.com/fracomex/"><i class="fab fa-facebook fa-2x" href="#"></i></a>
-										<a href="https://www.instagram.com/fracomex/?hl=fr"><i class="fab fa-instagram fa-2x" href="#"></i></a>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -302,6 +298,21 @@
 								</div>
 							</div>
 						</div>
+
+						<!-- Start modification of the social's location - Ravo -->
+						<div class="col-md-12">
+							Retrouvez-nous sur
+							<div class="footer-social" style="">
+								<a href="https://www.facebook.com/fracomex/">
+									<i class="fab fa-facebook fa-2x" href="#"></i>
+								</a>
+								<a href="https://www.instagram.com/fracomex/?hl=fr">
+									<i class="fab fa-instagram fa-2x" href="#"></i>
+								</a>
+							</div>
+						</div>
+						<!-- End modification of the social's location - Ravo -->
+
 					</div>
 				</div>
 			</div>
@@ -333,7 +344,7 @@ Nous utilisons des cookies pour améliorer votre expérience sur notre site web.
 						<a href="#"><i class="fab fa-behance"></i></a>	
 					</div-->
 					<p>
-						&copy;copyright. | <a href="http://www.phidia.fr" style="font-weight: bold;">Phidia</a> | 2022
+						&copy;copyright. | <a href="http://www.phidia.fr" style="font-weight: bold;">Phidia</a> | 2024
 					</p>
 				</div>
 			</div>

@@ -7,6 +7,7 @@ defmodule Fracomex.Products.SubFamily do
   schema "sub_families" do
     field :caption, :string
     field :family_id, :string
+    field :image, :string
   end
 
   @doc false
@@ -31,6 +32,13 @@ defmodule Fracomex.Products.SubFamily do
       true ->
         changeset
     end
+  end
+
+  #changset pour ajout des images dans subfamily
+  def add_image_changeset(sub_family, attrs) do
+    sub_family
+    |> cast(attrs, [:image])
+    |> check_item_family_change()
   end
 
 

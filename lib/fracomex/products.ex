@@ -615,6 +615,11 @@ defmodule Fracomex.Products do
     Repo.all(query)
   end
 
+  # All families - Ravo
+  def list_all_families do
+    Repo.all(Family)
+  end
+
   def list_families_with_subs do
     query = from f in Family,
             preload: [:sub_families]

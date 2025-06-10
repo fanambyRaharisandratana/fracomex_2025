@@ -63,9 +63,9 @@ a:focus {
     display: inline-block;
     text-decoration: none;
     color: #616060;
-    font-size: 16px;
+    /* font-size: 16px;*/ /*Stop the  bold title on hover */
     padding: 0;
-    font-weight: 500;
+    /*font-weight: 500;*/ /* Stop the  bold title on hover */
 }
 
 h1,
@@ -1206,7 +1206,8 @@ ul.cart-list>li.total {
     padding: 5px;
     word-wrap: anywhere;
     /* margin-bottom: 4rem; */
-    font-weight: bolder;
+    /* Disable the bolder title */
+    /* font-weight: bolder; */
     font-size: larger;
     background: ghostwhite;
 }
@@ -1394,7 +1395,9 @@ span.feature-review {
     -ms-transition: 0.3s linear;
     -o-transition: 0.3s linear;
     transition: 0.3s linear;
-    border: 1px solid black;
+    /* Start design .single-categ - Ravo */
+    /* border: 1px solid black; */
+    /* End design .single-categ - Ravo */
     padding: 1.5rem;
 }
 
@@ -1411,7 +1414,7 @@ span.feature-review {
 .single-categ-img img {
     width: auto;
     height: auto;
-    min-height: 320px;
+    min-height: 232.5px; /* Design img single-categ - Ravo*/
     -webkit-transition: .3s linear;
     -moz-transition: .3s linear;
     -ms-transition: .3s linear;
@@ -1709,7 +1712,7 @@ input[type=password] {
 .mini-slide {
     background: #f8f9fd;
     display: flex;
-    align-items: center;
+    align-items: center;/*Start center and bold the title h2 - Ravo*/
     height: 400px;
 }
 
@@ -1723,23 +1726,26 @@ input[type=password] {
 
 .section-header h2 {
     font-size: 30px;
-    font-weight: 500;
-    left: 2rem;
-    position: absolute;
-    padding-left: 60px;
+    /*Start center and bold the title h2 - Ravo*/
+    font-weight: 600;
+    /* left: 2rem;
+    position: absolute; */
+    /*End center and bold the title h2 - Ravo*/
     margin-bottom: 40px;
     color: #e41201;
 }
 
+/*Start center and bold the title h2 - Ravo*/
 .section-header .title-promo::before {
     position: absolute;
     content: "";
-    width: 45px;
-    height: 2px;
+    width: 10%;
+    height: 5px;
     background: #000000;
-    top: 45%;
-    left: 0;
+    top: 40%;
+    left: 26%;
 }
+/*End center and bold the title h2 - Ravo*/
 
 .owl-controls .owl-buttons {
     text-align: center;

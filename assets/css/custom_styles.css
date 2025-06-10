@@ -1,0 +1,271 @@
+/* Start Ravo Modif */
+
+/* Start Carousel */
+/* Adjust the width of the img on carousel */
+.wrapper .carousel-fade .carousel-inner .item:nth-child(1) img.slide-img {
+  width: 100%;
+}
+
+/* End Carousel */
+
+/* Start devis*/
+#header-carousel .devis {
+  text-align: center;
+}
+
+/* Style devis h2 */
+#header-carousel .devis h2 {
+  color: #000;
+  font-family: cursive;
+}
+
+/* Style butoon 'CONTACTEZ-NOUS' */
+#header-carousel .devis button {
+  background-color: #e41201;
+  border-radius: 3rem;
+  color: #fff;
+  height: 5rem;
+  margin: 10px;
+  width: 100%;
+}
+
+/* End devis*/
+
+/* Start 'NOS PRODUITS' */
+/* Margin of the NOS PRODUITS */
+#categ .container .categ-content {
+  margin: 0 2%;
+}
+
+/* Center and bold the title h2 - Ravo*/
+.section-header .title-promo::after {
+  background: #000000;
+  content: "";
+  height: 5px;
+  position: absolute;
+  right: 26%;
+  top: 40%;
+  width: 10%;
+}
+
+/* Center the col-sm-3 */
+.categ-content .row .col-sm-3 {
+  display: ruby-text;
+}
+
+/* Align the text single-categ to center */
+.row .col-sm-3 .single-categ .single-categ-txt {
+  text-align: center;
+}
+
+/* Design img single-categ - Ravo*/
+.row .col-sm-3 .single-categ .single-categ-img {
+  border-radius: 50%;
+}
+
+/* Center the button */
+.row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay {
+  display: grid;
+  align-content: space-between;
+}
+
+/* Design button cart */
+.row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay button.btn-cart.valide-cart {
+  bottom: 5rem;
+  position: relative;
+}
+
+/* End 'NOS PRODUITS' */
+
+/* Start details produit */
+/* Put the product-name outside of the picture */
+.details-product .single-product-bg .product-name a {
+  background: ghostwhite;
+  margin-top: 9rem;
+}
+/* Start details produit */
+
+/* Start Nos Partenaires */
+
+/* End Nos Partenaires */
+/* Start Horaires d'ouverture */
+/* Customization of the table */
+.wrapper .timetable {
+  color: black;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+/* Image size */
+.timetable img.clock {    
+  padding-top: 1%;
+  width: 10%;
+}
+
+/* Style of the h2 */
+.wrapper .timetable h2 {
+  color: black;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+/* Style of the timeline */
+.wrapper .timetable .timeline {
+  margin: 2% 2%;
+}
+
+/* Customization of the table header and column*/
+.wrapper .timetable .timeline th.day, .wrapper .timetable .timeline td {
+  /* border-right: 4px solid; */
+  padding: 4px;
+  text-align: center;
+}
+
+/* Border in the middle of the table horaires d'ouverture */
+.wrapper .timetable .timeline tr:nth-child(2) td {
+  border-right: 4px solid;
+}
+
+.wrapper .timetable .timeline tr:nth-child(2) td:before{
+  content: "";
+  position: absolute;
+  width: 3px;
+  right: -3px;
+  height: 60%;
+  background: red;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Font-size of the header table of horaires d'ouverture */
+.wrapper .timetable .timeline th.day {
+  font-family: system-ui;
+  font-weight: normal;
+}
+
+/* Font-size of the data inside the table of horaires d'ouverture */
+.wrapper .timetable .timeline td {
+  font-family: system-ui;
+  font-weight: 500; /* Add bold to the hour */
+}
+
+/* End Horaires d'ouverture */
+
+/* Start Prefooter */
+/* Center the column social on prefooter */
+.prefooter .container .hm-footer-details .row .col-md-12 {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Increase the size of the social icon on prefooter */
+.row .col-md-12 .footer-social a {
+  font-size: 2rem;
+}
+/* End Prefooter */
+
+/* Start Maquette */
+/* Start Header */
+
+/* Change the padding of the logo in header menu */
+/* .wrap-sticky nav.navbar.bootsnav.sticked .navbar-header {
+  padding: 0 2rem 1.5rem 2rem;
+} */
+
+/* Change the color of all the text in header menu */
+.wrap-sticky nav.navbar.bootsnav .menu-ui-design ul.nav > li > a {
+  color: white;
+}
+
+/* Change the color of all the icon in header menu */
+.wrap-sticky nav.navbar.bootsnav .container .attr-nav > ul > li > a {
+  color: white;
+}
+
+/* Change the background of the header menu */
+.wrap-sticky nav.navbar.bootsnav, .wrap-sticky nav.navbar.bootsnav.sticked {
+  background: #e41201;
+}
+
+/* Change the background of the body */
+.wrapper {
+  background-color: #fff2f0;
+}
+
+/* Set the background and the color of the number of cart in header */
+.wrap-sticky nav.navbar.bootsnav .container .attr-nav > ul > li > a span.badge {
+  background: white;
+  color: #e41201;
+}
+
+/* End Header */
+
+/* Start Nos produits */
+/* Change the font-familily of the h2in single-categ-txt */
+.categ-content .row .col-sm-3 .single-categ {
+  font-family: initial;
+}
+
+/* Background, font-family and size of the sngle-item-img */
+.categ-content .row .col-sm-3 .single-categ .single-categ-img {
+  background: white;
+  height: 20rem;
+  width: 20rem;
+}
+
+/* Center and size the image in single-categ-img */
+.categ-content .row .col-sm-3 .single-categ .single-categ-img img {
+  border-radius: 50%;
+  height: 14rem;
+  left: 3rem;
+  min-height: 10rem;
+  position: relative;
+  top: 0.6rem;
+  width: 14rem;
+}
+
+/* Background, font-family and size of the single-categ-txt */
+.categ-content .row .col-sm-3 .single-categ .single-categ-txt {
+  background: white;
+  border: 3px solid;
+  border-radius: 40rem;
+  border-style: double;
+  bottom: 7rem;
+  left: 3.6rem;
+  margin-left: 1.4rem;
+  position: relative;
+  width: 46%;
+}
+
+/* Style the single-txt */
+.categ-content .row .col-sm-3 .single-categ .single-categ-txt h2.mb-2 {
+  color: #e41201;
+  font-size: 2rem;
+  position: relative;
+  top: 0.2rem;
+}
+
+/* End Nos produits */
+
+/* Start page category and product */
+/* Set the header top-section to white */
+section.top-section.p-4 {
+  background: white;
+}
+
+/* Set color of the titre of categorie, product and breadcrumbs  */
+.top-section #shop-banner .text-center h1, .top-section #shop-banner .text-center a, .top-section #shop-banner .text-center span {
+  color: #e41201;
+}
+
+/* Set the color of the after */
+.top-section #shop-banner .text-center ol li:not(:last-child) a::after {
+  color: #e41201;
+}
+
+/* End page category and product */
+
+/* End Maquette */
+
+/* End Ravo Modif */

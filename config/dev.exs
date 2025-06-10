@@ -3,9 +3,10 @@ import Config
 # Configure your database
 config :fracomex, Fracomex.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "Mgbi@261!",
   hostname: "localhost",
   database: "fracomex",
+  port: 5433,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -13,12 +14,15 @@ config :fracomex, Fracomex.Repo,
 config :fracomex, Fracomex.EbpRepo,
   username: "sa",
   password: "@ebp78EBP",
-  hostname: "37.59.57.29",
   database: "FRACOMEX_0895452f-b7c1-4c00-a316-c6a6d0ea4bf4",
-  instance: "EBP_2017",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  # instance: "EBP_2017",
+  # stacktrace: true,
+  # show_sensitive_data_on_connection_error: true,
+  # pool_size: 10
+  hostname: "51.75.181.188",
+  timeout: 45_000,
+  odbc_driver: "{SQL Server Native Client 11.0}",
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
@@ -29,7 +33,7 @@ config :fracomex, Fracomex.EbpRepo,
 config :fracomex, FracomexWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {0, 0, 0, 0}, port: 4005],
+  http: [ip: {0, 0, 0, 0}, port: 4022],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
@@ -76,6 +80,16 @@ config :fracomex, FracomexWeb.Endpoint,
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
+
+config :logger,
+  backends: [{LoggerFileBackend, :combined_log}]
+
+# Configuration du backend pour un fichier de log unique
+config :logger, :combined_log,
+  path: "/var/log/elixir/fracomex.log",
+  level: :debug,  # Capturera les messages de niveau :info et plus (y compris :warn et :error)
+  format: "$date $time $metadata[$level] $message\n",  # Format personnalisé des logs
+  metadata: [:request_id]  # Métadonnées supplémentaires si nécessaire
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

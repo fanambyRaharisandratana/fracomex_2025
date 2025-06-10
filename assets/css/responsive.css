@@ -2,23 +2,155 @@
 	.sidepanel {
 		margin-left: -1000px;
 	  }
+	
+	/* Start responsive header-area */
+	/* Left the logo in header menu */
+	.wrap-sticky nav.navbar.bootsnav .navbar-header {
+		left: 0rem;
 	}
+
+	/* Width of the header-area */
+	.top-area .header-area .wrap-sticky .container {
+		max-width: calc(100% - 20px);
+		width: 1400px;
+	}
+	/* End responsive header-area */
+
+	/* Start responsive devis */
+		#header-carousel .devis h2 {
+			font-size: xx-large;
+		}
+	
+		#header-carousel .devis button {
+			font-size: large;
+		}
+	/* End responsive devis*/
+
+	/* Start responsive Horaires d'ouverture */
+	.timetable img.clock {
+		width: 4%;
+	}
+
+	.wrapper .timetable .timeline {
+		margin: 2% 0%;
+		width: 100%;
+	}
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 2rem;
+	}
+
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 1.6rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start Nos Partenaires */
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row {
+		padding-left: 4rem;
+	}
+	/* End Nos Partenaires */
+
+}/*max-width:3680px*/
+
 @media screen and (max-width:2680px){
 	.sidepanel {
 		margin-left: -1000px;
 	  }
 	}
+
 @media screen and (max-width:1680px){
 	.sidepanel {
 		margin-left: -800px;
 	  }
+
+	/* Start responsive Horaires d'ouverture */
+
+	/* End responsive Horaires d'ouverture */
+
 }/*max-width:1680px*/
+
+@media screen and (max-width:1539px) {
+	/* Start Nos Partenaires */
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row .col-md-2.col-sm-4 {
+		width: 11%;
+	}
+
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row {
+		padding-left: 1rem;
+	}
+	/* End Nos Partenaires */
+}/*max-width:1539px*/
+
 @media screen and (max-width:1440px){
 	.single-slide-hero {height: 807px;}
 	.sidepanel {
 		margin-left: -800px;
 	  }
+
+	/* Start Navbar header */
+	/* Adjust the location of the icon with left */
+	.wrap-sticky nav.navbar.bootsnav .navbar-header {
+		left: 2rem;
+	}
+
+	/* Reduce the space between every menu in menu header */
+	.wrap-sticky nav.navbar.bootsnav ul.navbar-center > li.scroll.in-top {
+		margin-left: -1.2rem;
+    	margin-right: -1.2rem;
+	}
+	.wrap-sticky nav.navbar.bootsnav.sticked ul.navbar-center > li.scroll.in-top {
+		margin-left: -1.2rem;
+    	margin-right: -1.2rem;
+	}
+	/* End Navbar header  */
 }/*max-width:1440px*/
+
+@media screen and (max-width:1280px){
+	/* Start Navbar header */
+	/* Adjust the location of the icon with left */
+	.wrap-sticky nav.navbar.bootsnav .navbar-header {
+		/* bottom: -10px; */
+	}
+
+	/* Reduce the space between every menu in menu header */
+	.wrap-sticky nav.navbar.bootsnav ul.navbar-center > li.scroll.in-top {
+		margin-left: 0rem;
+        margin-right: 0rem;
+	}
+	.wrap-sticky nav.navbar.bootsnav.sticked ul.navbar-center > li.scroll.in-top {
+		margin: 2.2rem -1.5rem;
+	}
+	/* End Navbar header  */
+
+	/* Start page categorie product */
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 21rem;
+		margin-bottom: 4rem;
+		min-height: 0;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		margin-top: 0;
+		position: relative;
+		top: -1rem;
+	}
+	/* End page categorie product */
+
+	/* Start Nos Partenaires */
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row {
+		padding-left: 2rem;
+	}
+	/* End Nos Partenaires */
+}/*max-width:1280px*/
 
 @media screen and (max-width:1199px){
 	nav.navbar.bootsnav ul.nav > li > a { padding: 35px 10px;}
@@ -29,13 +161,71 @@
 
 	.single-populer-products {min-height: 320px;}
 
+	/* Start responsive NOS PRODUITS */
+	/* Width of he products container */
+	#categ .container {
+		width: 100%;
+	}
+
+	/* Size of the single-categ-img */
+	/*.categ-content .row .col-sm-3 .single-categ .single-categ-img {
+		height: 16rem;
+		width: 16rem;
+	}*/
+	/* End responsive NOS PRODUITS */
+
 }/*max-width:1199px*/
+
+@media screen and (max-width:1100px){
+	/* Start responsive NOS PRODUITS */
+	/* Size of the single-categ-txt */
+	.categ-content .row .col-sm-3 .single-categ .single-categ-txt {
+		width: 50%;
+	}
+	/* End responsive NOS PRODUITS */
+}/*max-width:1100px*/
+
+@media screen and (max-width:1073px){
+	/* Start Nos Partenaires */
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row .col-md-2.col-sm-4 {
+		width: 10%;
+	}
+	/* End Nos Partenaires */
+}/*max-width:1073px*/
 
 @media screen and (max-width:1024px){
 	nav.navbar.bootsnav.menu-center ul.nav.navbar-center {float: none!important;margin: 0 auto;display: table;}
 
 	.single-slide-hero {height:768px;}
 	.single-about-img:before,.single-about-img:after{display: none;}
+
+	/* Start responsive NOS PRODUITS */
+
+	/* End responsive NOS PRODUITS */
+
+	/* Start responsive Horaires d'ouverture */
+		.timetable img.clock {
+		width: 6%;
+	}
+
+		.wrapper .timetable .timeline {
+		margin: 2% 5%;
+		width: 90%;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start page categorie product */
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 16rem;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -3rem;
+	}
+	/* End page categorie product */
 }/*max-width:1024px*/
 
 @media screen and (max-width:1008px){
@@ -68,7 +258,15 @@
 	#header-carousel {
 		margin-top: 10rem;
 		margin-bottom: 10rem;
-	  }  
+	  }
+
+	/* Start responsive NOS PRODUITS */
+	/* Size of the single-categ-txt */
+	.categ-content .row .col-sm-3 .single-categ .single-categ-txt {
+		width: 60%;
+	}
+	/* End responsive NOS PRODUITS */
+
 }/*max-width:992px*/
 
 @media screen and (max-width:991px){
@@ -103,15 +301,68 @@
 	.top-section {
 		margin-top: 120px;
 	}  
-	.product-grid{
+
+	/* Reduce the width of the .product-grid - Ravo */
+	/* .product-grid{
 		width: 50%;
 		float: left;
-	}
+	} */
 	.wrap-sticky nav.navbar.bootsnav.sticked ul.nav > li > a {
 		padding: 10px;
 	  }  
 
+	/* Start responsive NOS PRODUITS */
+		.section-header .title-promo::before {
+		right: 20%;
+	}
+
+		.section-header .title-promo::after {
+		right: 20%;
+	}
+
+		.categ-content .row .col-sm-3 .single-categ .single-categ-img {
+		height: 17rem;
+		width: 17rem;
+	}
+	
+		.categ-content .row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay button.btn-cart.valide-cart {
+		bottom: 8rem;
+	}
+	/* End responsive NOS PRODUITS */
+
+	/* Start page categorie product */
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -3.6rem;
+	}
+	/* End page categorie product */
+
 }/*max-width:991px*/
+
+@media screen and (max-width:900px){
+	/* Start responsive NOS PRODUITS */
+	/* Size of the single-categ-txt */
+	.categ-content .row .col-sm-3 .single-categ .single-categ-txt {
+		width: 64%;
+	}
+	/* End responsive NOS PRODUITS */
+}/*max-width:900px*/
+
+@media screen and (max-width:800px){
+	/* Start responsive NOS PRODUITS */
+	/* Location of the single-categ-img */
+	.categ-content .row .col-sm-3 .single-categ .single-categ-img img {
+		left: 2rem;
+	}
+
+	/* Size of the single-categ-txt */
+	.categ-content .row .col-sm-3 .single-categ .single-categ-txt {
+		bottom: 68px;
+        left: 25px;
+		width: 74%;
+	}
+	/* End responsive NOS PRODUITS */
+}/*max-width:900px*/
 
 @media screen and (max-width:768px){
     .sidepanel {
@@ -144,7 +395,69 @@
 	#header-carousel {
 		margin-top: 14rem;
 		margin-bottom: 10rem;
-	  }  
+	  }
+
+	  /* Start Carousel */
+
+	  /* padding of the img slide 10 */
+	  .wrapper .carousel-fade .carousel-inner .item:nth-child(10) img.slide-img {
+		padding: 0 1rem;	
+	}
+	  /* End carousel */
+
+	/* Start responsive NOS PRODUITS */
+		.section-header .title-promo::before {
+		left: 20%;
+	}
+  
+	  .section-header .title-promo::after {
+		right: 20%;
+	}
+
+	  .row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay button.btn-cart.valide-cart {
+		bottom: 8rem;
+	}
+	/* End responsive NOS PRODUITS */
+
+	/* Start responsive Horaires d'ouverture */
+
+		.wrapper .timetable {
+		font-size: 1.4rem;
+	}
+
+		.timetable img.clock {
+		width: 8%;
+	}
+		.wrapper .timetable .timeline {
+		margin: 2% 2%;
+		width: 96%;
+	}
+	
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 1.8rem;
+	}
+	
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 1.4rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start Nos Partenaires */
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row .col-md-2.col-sm-4 {
+		width: 9%;
+	}
+
+	/* Adjust the size of the col for each picture */
+	.wrapper .partners .row {
+		margin-left: -1rem;
+        padding-left: 0rem;
+	}
+	/* End Nos Partenaires */
+
 }/*max-width:768px*/
 
 @media screen and (max-width:767px){
@@ -159,6 +472,41 @@
 	.navbar.navbar-default.bootsnav.navbar-sticky.on.menu-center.no-full.sticked .container {
 		top: 0px !important;
 	  }
+
+	/* Start responsive NOS PRODUITS */
+	  .row .col-sm-3 .single-categ .single-categ-img {
+		height: 29rem;
+		width: 29rem;
+	}
+		.row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay button.btn-cart.valide-cart {
+		bottom: 2rem;
+	}
+	/* End responsive NOS PRODUITS */
+
+	/* Start page categorie product */
+	/* Adjust the width of the categorie panel */
+	.all-product .all-product-content .row {
+		width: 100%;
+	}
+
+	/* Reduce the width of the .product-grid - Ravo */
+	/* Align the product in Two line */
+	.all-product .all-product-content .product-grid{
+		width: 50%;
+		float: left;
+	}
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 30rem;
+		width: 88%;	
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: 3.4rem;
+	}
+	/* End page categorie product */
 	
 }/*max-width:767px*/
 
@@ -198,7 +546,43 @@
 	  }  
 	  .carousel-indicators {
 		bottom: 25px;
-	  }  
+	  } 
+
+	/* Start responsive Horaires d'ouverture */
+		.wrapper .timetable {
+		font-size: 1rem;
+	}
+
+		.wrapper .timetable .timeline {
+		margin: 2% 2%;
+		width: 96%;
+	}
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 1.6rem;
+	}
+
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 1.2rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 26rem;
+		width: 91%;	
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: 1rem;
+	}
+	/* End page categorie product */
+
 }/*max-width:660px*/
 
 @media screen and (max-width: 640px){
@@ -245,7 +629,58 @@
 	  }
 	.navbar.navbar-default.bootsnav.navbar-sticky.on.menu-center.no-full.sticked .container {
 		top: 0px !important;
-	  }  
+	  }
+	
+	/* Start responsive NOS PRODUITS */
+	  .section-header h2.title-promo {
+		font-size: 3rem;
+	}
+  
+	  .section-header .title-promo::before {
+		left: 16%;
+	}
+  
+	  .section-header .title-promo::after {
+		right: 16%;
+	}
+  
+	  .row .col-sm-3 .single-categ .single-categ-img {
+		height: 26rem;
+		width: 26rem;
+	}
+  
+	  .row .col-sm-3 .single-categ .single-categ-img .single-categ-img-overlay button.btn-cart.valide-cart {
+		bottom: 4rem;
+	}
+	/* End responsive NOS PRODUITS */
+
+	/* Start responsive Horaires d'ouverture */
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 1.4rem;
+	}
+
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 1rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 23rem;
+		width: 100%;	
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: 0rem;
+	}
+	/* End page categorie product */
+
 }/*max-width:540px*/
 
 @media screen and (max-width: 480px){
@@ -263,6 +698,33 @@
 		margin-top: 5rem;
 		margin-bottom: 10rem;
 	  }
+
+	/* Start responsive Horaires d'ouverture */
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 1.2rem;
+	}
+
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 0.8rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 20rem;
+		width: 102%;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -1.6rem;
+	}
+	/* End page categorie product */
 }/*max-width:480px*/
 
 @media screen and (max-width: 440px){
@@ -270,13 +732,118 @@
 	.slide-hero-txt h2 {font-size: 24px;line-height: 1.5;}
 	.slide-hero-txt h3,.slide-hero-txt h4 {font-size: 24px;}
 	
-}/*max-width:400px*/
+	/* Start responsive NOS PRODUITS */
+		.section-header h2.title-promo {
+		font-size: 2rem;
+	}
+  
+	  .section-header .title-promo::before {
+		left: 16%;
+	}
+  
+	  .section-header .title-promo::after {
+		right: 16%;
+	}
+	/* End responsive NOS PRODUITS */
+
+	/* Start responsive Horaires d'ouverture */
+
+	/* Font-size of the header table of horaires d'ouverture */
+	.wrapper .timetable .timeline th.day {
+		font-size: 1rem;
+	}
+
+	/* Font-size of the data inside the table of horaires d'ouverture */
+	.wrapper .timetable .timeline td {
+		font-size: 0.6rem;
+	}
+	/* End responsive Horaires d'ouverture */
+
+	/* Start detail produit */
+
+	/* Remove the overflow width in the title on mobile */
+	.wrapper .top-section .text-center h1 {
+		font-size: 2rem;
+	}
+
+	/* Reduce the font-size of the title on mobile */
+	.wrapper .top-section .text-center ol {
+		font-size: 1.2rem;
+	}
+	/* End detail produit */
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 18rem;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -2.7rem;
+	}
+	/* End page categorie product */
+
+}/*max-width:440px*/
+
+@media screen and (max-width: 403px){
+	/* Start Carousel */
+	/* Size of .carousel-indicators */
+	.carousel-fade ol.carousel-indicators {
+		left: 12rem;
+		width: 100%;
+	}
+	/* End Carousel */
+	  
+}/*max-width:403px*/
+
+/* max-width:380px */
+@media screen and (max-width:380px){
+	  /* Start Carousel */
+
+	  /* padding of the img slide 10 */
+	  .wrapper .carousel-fade .carousel-inner .item:nth-child(10) img.slide-img {
+		padding-left: 2rem;
+	}
+	  /* End carousel */
+}/* max-width:380px */
 
 @media screen and (max-width:350px){
 	nav.navbar.bootsnav .navbar-toggle {margin-right: -25px;left:-10px;}
 	nav.navbar.bootsnav .navbar-brand {padding:25px 0;font-size: 20px;}
 	.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand, .wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:hover,.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header a.navbar-brand:focus {padding: 25px 0px;}
 	.wrap-sticky nav.navbar.bootsnav.sticked .attr-nav > ul > li > a {padding: 22px 10px;}
+
+	/* Start detail produit */
+	/* Reduce the font-size of the title on mobile */
+	.wrapper .top-section .text-center ol {
+		font-size: 1rem;
+	}
+	/* End detail produit */
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 15rem;
+		width: 110%;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -4rem;
+	}
+	/* End page categorie product */
+
+	/* Start Carousel */
+	/* Size of .carousel-indicators */
+	.carousel-fade ol.carousel-indicators {
+		left: 11rem;
+		width: 100%;
+	}
+	/* End Carousel */
+
 }/*max-width:350px*/
 
 @media screen and  (max-width: 320px){
@@ -298,6 +865,20 @@
     .navigation li {
         display: inline;
         text-align: center;
-      } 
+      }
+
+	/* Start page categorie product */
+
+	/* Adjust the height of the categorie image */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg {
+		height: 13rem;
+		width: 113%;
+	}
+
+	/* Adjust the position of the product-name */
+	.all-product .all-product-content .product-grid .content-product .details-product .single-product-bg .product-name a {
+		top: -5rem;
+	}
+	/* End page categorie product */
 }/*max-width:320px*/
 

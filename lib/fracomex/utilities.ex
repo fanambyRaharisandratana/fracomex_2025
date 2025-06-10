@@ -1,6 +1,8 @@
 defmodule Fracomex.Utilities do
 
   alias Fracomex.Products
+  alias Fracomex.Products.SubFamily
+  alias Fracomex.Repo
 
   def get_page_title_tag(request_path, user_id) do
     uid = cond do
@@ -162,4 +164,23 @@ defmodule Fracomex.Utilities do
     end
    )
   end
+  #Script pour ajouter des images dans subfamily
+  def insert_image_to_sub_familie(sub_familie_id , image_name) do #string dhl ny parametres
+    attrs =  %{image: image_name}
+    case Products.get_sub_family!(sub_familie_id) do
+       sub_family ->
+       changeset = SubFamily.add_image_changeset(sub_family , attrs)
+       Repo.update(changeset)
+      _
+       -> "erreur"
+    end
+  end
 end
+
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00011" , "CHAUFFE EAU.jpg")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00012" , "COMBIDOUCHE COMBIBARRE.jpg")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00024" , "NOURRICE.jpg")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00025" , "PER RETUBE.jpg")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00035" , "ROBINETTERIE.jpg")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00010" , "TUBES PVC ITALIE.png")
+#Fracomex.Utilities.insert_image_to_sub_familie("SFAR00040" , "TUYAU PEHD POLY.png")

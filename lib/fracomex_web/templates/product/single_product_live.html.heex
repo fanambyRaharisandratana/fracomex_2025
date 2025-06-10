@@ -109,7 +109,10 @@
 								<h2 class="details-product-name" style="word-wrap: anywhere; font-size: 26px;"><%= String.capitalize(@item.caption) %> </h2>
 								<p><b>Catégorie:</b> <%= family_caption %></p>
 								<p><b>Sous-catégorie:</b> <%= sub_family_caption %></p>
-								<%= if Decimal.to_integer(@item.real_stock) > 0 do %><p><b style="color: black;">Disponible en stock</b></p><% end %>
+							
+								<%= if Decimal.cmp(@item.real_stock, Decimal.new(0)) == :gt do %>
+								<p><b style="color: black;">Disponible en stock</b></p>
+								<% end %>
 								<h3 class="details-product-price"><%= Fracomex.Utilities.price_format(@item.sale_price_vat_excluded) %> €</h3>
 								<div class="row">
 

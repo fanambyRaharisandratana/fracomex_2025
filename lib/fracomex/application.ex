@@ -20,6 +20,8 @@ defmodule Fracomex.Application do
       {Phoenix.PubSub, name: Fracomex.PubSub},
       # Start the Endpoint (http/https)
       FracomexWeb.Endpoint,
+      #start backup
+      Fracomex.DatabaseBackup
       # Start a worker by calling: Fracomex.Worker.start_link(arg)
       # {Fracomex.Worker, arg}
       # ItemFamily Sync Worker

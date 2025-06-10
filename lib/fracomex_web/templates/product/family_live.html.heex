@@ -69,7 +69,7 @@
 
 			<!-- Si la sous-famille existe pour une famille selectionné, alors on affiche les articles qui ont des sous-familles -->
 			<%= if not is_nil(@sub_families_by_family_id) do %>
-				<div class="col-md-9 col-sm-12">
+				<div class="col-md-9 col-sm-8"> <!-- col-sm-12 to col-sm-8 for reducing the width of the mobile responsive - Ravo -->
 					<main class="container">
 						<p class="all-alert alert animated fadeInRight alert-info" role="alert"
 						phx-click="lv:clear-flash"
@@ -86,7 +86,7 @@
 								<div class="details-product">
 									<a data-phx-link="redirect" data-phx-link-state="push" href={Routes.product_path(@socket, :sub_family, Fracomex.Products.get_family!(sub_family.family_id).caption, sub_family.caption)}>
 										<div class="single-product-bg shadow">
-											<img src={Routes.static_path(@socket, "/images/empty.png")} alt="">
+											<img src={Routes.static_path(@socket, "/images/sub-items/#{sub_family.image}")} alt="">
 											<div class="single-product-bg-overlay"></div>
 											<div hidden class="sale bg-1">
 												<p hidden>news</p>
@@ -95,7 +95,7 @@
 
 											<!--product_title-->
 											<div class="product-name">	
-												<a data-phx-link="redirect" data-phx-link-state="push" href={Routes.product_path(@socket, :sub_family, Fracomex.Products.get_family!(sub_family.family_id).caption, sub_family.caption)}>
+												<a data-phx-link="redirect" data-phx-link-state="push" href={Routes.product_path(@socket, :sub_family, Fracomex.Products.get_family!(sub_family.family_id).caption, sub_family.caption)} style="color: black; box-sizing: border-box;">
 													<%= String.capitalize(sub_family.caption) %>
 												</a>
 											</div>
@@ -306,7 +306,7 @@
 														</p-->
 													</div>
 												<% else %>
-													<div class="out-of-stock-ribbon">
+													<div class="out-of-stock-ribbon" style="display: none;">
 														<p style="font-size: 1rem;"></p>
 													</div>
 												<% end %>
