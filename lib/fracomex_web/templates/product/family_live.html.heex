@@ -35,36 +35,48 @@
 				<div id="collapse-category" class="card p-4" style="background: none !important;">
 					<ul class="category">
 						<%= for family <- @families do %>
-							<%= cond do  %>
-								<% length(family.sub_families) > 0 -> %>
-									<!--/has sub-category-->	
-									<li class={"has-child#{if family.id != @selected_family_id, do: " collapsed"}"} id={"li-category#{family.id}"}  data-toggle="collapse" data-target={"#sub-collapse#{family.id}"} aria-expanded="true" aria-controls="collapseOne">
-										<a class="child mb-0" style="color: #000000c4; cursor: pointer;" phx-click="show-sub-family" phx-value-id={family.id}>
-											<%= String.capitalize(family.caption) %>
-										</a>
-									</li>	
-										
-									<div id={"sub-collapse#{family.id}"} class={"collapse category-collapse #{if family.id == @selected_family_id, do: "in"}"} data-parent="#collapse-category">
-										<ul class="sub-category">
-											<%= for sub_family <- family.sub_families do %>
-												<li class="">
-													<a href={Routes.product_path(@socket, :sub_family, family.caption, sub_family.caption)}><%= String.capitalize(sub_family.caption) %></a>
-												</li>
-											<% end %>
-										</ul>
-									</div>
-									
-								<% true -> %>
-									<!--/has not sub-category-->
-									<li class="no-child" id={"li-category-no-child#{family.id}"}>
-										<a class="child mb-0" href={Routes.product_path(@socket, :family, family.caption)} style={"color: #{if family.id == @selected_family_id, do: "#e41201"}"}>
-											<%= String.capitalize(family.caption) %>
-										</a>
-									</li>
-							<% end %>
-						<% end %>	
+						<%= if length(family.sub_families) > 0 do %>
+							<!-- Famille avec sous-catégories -->
+							<li class={"has-child d-flex justify-content-between align-items-center #{ if family.id != @selected_family_id, do: "collapsed" }"} id={"li-category#{family.id}"}>
+
+							<!-- Texte de la famille : déclenche le phx-click -->
+							<a class="child mb-0 text-decoration-none"
+								style="color: #000000c4; cursor: pointer;"
+								phx-click="show-sub-family"
+								phx-value-id={family.id}>
+								<%= String.capitalize(family.caption) %>
+							</a>
+
+							</li>
+
+							<!-- Sous-catégories -->
+							<div id={"sub-collapse#{family.id}"}
+								class={"collapse category-collapse #{if family.id == @selected_family_id, do: "show"}"}
+								data-bs-parent="#collapse-category">
+							<ul class="sub-category ps-3">
+								<%= for sub_family <- family.sub_families do %>
+								<li>
+									<a href={Routes.product_path(@socket, :sub_family, family.caption, sub_family.caption)}>
+									<%= String.capitalize(sub_family.caption) %>
+									</a>
+								</li>
+								<% end %>
+							</ul>
+							</div>
+						<% else %>
+							<!-- Famille sans sous-catégorie -->
+							<li class="no-child" id={"li-category-no-child#{family.id}"}>
+							<a class="child mb-0 text-decoration-none"
+								href={Routes.product_path(@socket, :family, family.caption)}
+								style={"color: #{if family.id == @selected_family_id, do: "#e41201"}"}>
+								<%= String.capitalize(family.caption) %>
+							</a>
+							</li>
+						<% end %>
+						<% end %>
 					</ul>
-				</div>	
+				</div>
+	
 			</div>	
 
 			<!-- Si la sous-famille existe pour une famille selectionné, alors on affiche les articles qui ont des sous-familles -->
