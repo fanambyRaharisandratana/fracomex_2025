@@ -1,459 +1,220 @@
 <p class="all-alert alert fadeInRight alert-info" role="alert" style="margin-top: 15px;"><%= get_flash(@conn, :info) %></p>
 <p class="all-alert alert fadeInRight alert-danger" role="alert" style="margin-top: 15px; text-align: center;"><%= get_flash(@conn, :error) %></p>
-<div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-				<!--/.carousel-indicator -->
-				 <ol class="carousel-indicators header-slide">
 
-                <%= for i <- @indexes do %>
-					<li data-target="#header-carousel" data-slide-to={"#{i}"} class={"#{if i==0, do: "active"}"}><span class="small-circle"></span></li>
-                <% end %>
+<div class="d-flex justify-content-center align-items-center responsive-carousel-wrapper">
+  <div id="header-carousel" 
+       class="carousel slide w-100" 
+       data-bs-ride="carousel" 
+       style="max-width: 50rem;margin-top:100px;">
 
-				</ol><!-- /ol-->
-				<!--/.carousel-indicator -->
-                <div class="owl-controls clickable">			
-					<div class="owl-buttons">
-							<i class="prev-slide lnr lnr-chevron-left primary-color" href="#header-carousel"  data-slide="prev">
-							</i>
-							<i class="next-slide lnr lnr-chevron-right primary-color" href="#header-carousel"  data-slide="next">
-							</i>
-					</div>
-				</div>
-				<!--/.carousel-inner -->
-				<div class="carousel-inner" role="listbox">
-                    <%= for {filename, i} <- @slides_files do %>
-                        <!-- .item -->
-                        <div class={"item #{if i==1 ,do: "active"}"}>
-                            <div class={"single-slide-item slide#{i}"}>
-                                <div class="container p-4">
-                                    <div class="slide-hero-content">
-                                        <div class="row slide-row">
-                                            <img src={Routes.static_path(@conn, "/images/slides/#{filename}")} alt="categ image" class= "slide-img">
-                                        </div>	
-                                    </div><!--/.slide-hero-content-->
-                                </div><!-- /.container-->
-                            </div><!-- /.single-slide-item-->
+       <style>
+            .carousel-indicators.header-slide {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding: 10px;
+                justify-content: center;
+                scrollbar-width: none; /* Firefox */
+            }
 
-                        </div><!-- /.item .active-->
-                    <% end %>
-				</div><!-- /.carousel-inner-->
+            .carousel-indicators.header-slide::-webkit-scrollbar {
+                display: none; /* Chrome */
+            }
 
-</div><!--/#header-carousel-->
+            .carousel-indicators.header-slide li {
+                background-color: red;
+                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+                flex: 0 0 auto;
+            }
 
-<!--welcome-hero start -->
-	<div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            .carousel-indicators.header-slide li.active {
+                transform: scale(1.2);
+            }
+        </style>
 
-                <!-- Start devis - Ravo -->
-                <div class="devis">
-                    <h2>Besoin d'un devis ?</h2>
-                    <a href="/contact">
-                        <button type="button">
-                            CONTACTEZ-NOUS
-                        </button>
-                    </a>
+    <!-- Indicators -->
+    <ol class="carousel-indicators header-slide">
+      <%= for i <- @indexes do %>
+        <li 
+          data-bs-target="#header-carousel" 
+          data-bs-slide-to={i}
+          class={if i == 0, do: "active"}>
+        </li>
+      <% end %>
+    </ol>
+
+    <!-- Carousel Inner -->
+    <div class="carousel-inner mx-auto" role="listbox" style="max-width: 50rem;">
+      <%= for {filename, i} <- @slides_files do %>
+        <div class={"carousel-item #{if i == 1, do: "active"}"}>
+          <div class={"single-slide-item slide#{i}"}>
+            <div class="container">
+              <div class="slide-hero-content">
+                <div class="row slide-row">
+                  <img src={Routes.static_path(@conn, "/images/slides/#{filename}")} alt="slide image" style="height:35rem;" class="slide-img d-block w-100">
                 </div>
-                <!-- End devis - Ravo -->
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-				<!--/.carousel-inner -->
-				<div class="carousel-inner" role="listbox" style="display: none;">
-					<!-- .item -->
-					<div class="item active">
-						<div class="single-slide-item slide1">
-                        <div class="banner_2_background" style="background-image:url(./images/banner_2_background.jpg)"></div>
-							<div class="container p-4" style="width: 100%;">
-								<div class="welcome-hero-content">
-									<div class="row">
-										<div class="col-sm-12 md-12">
-											<div class="single-welcome-hero animated fadeIn">
-												<div class="welcome-hero-txt animated fadeInDown text-center p-4" id="text-banner">
-													<h1 class="mb-4 primary-color" style="font-size: 40px;">Devis gratuit</h1>
-													<h1 class="mb-4" style="font-size: 40px;">
-                                                        Passez commande
-													</h1>
-													<h1 class="mb-4" style="font-size: 40px;">
-                                                        0269 61 25 38  / devis.fracomex@gmail.com
-													</h1>
-                                                    <div class="text-center">
-													<button class="btn-cart valide-cart in-banner">
-                                                        <a class="single_product_addtocart" href="/contact" style="color: #fff;">Contactez-nous</a>
-                                                    </button>
-                                                    </div>
-												</div><!--/.welcome-hero-txt-->
-											</div><!--/.single-welcome-hero-->
-										</div><!--/.col-->
-									</div><!--/.row-->
-								</div><!--/.welcome-hero-content-->
-							</div><!-- /.container-->
-						</div><!-- /.single-slide-item-->
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev" style="margin-right: 100px;">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Précédent</span>
+    </button>
 
-					</div><!-- /.item .active-->
+    <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Suivant</span>
+    </button>
 
-				</div><!-- /.carousel-inner-->
+  </div>
 </div>
-<!--/#header-carousel-->
+
+<div class="text-center py-4">
+  <h2 class="mb-3" style="margin-top: 100px">Besoin d'un devis ?</h2>
+  <a href="/contact">
+    <button type="button" class="btn btn-danger px-4 py-2" style="min-width: 200px;">
+      CONTACTEZ-NOUS
+    </button>
+  </a>
+</div>
 
 <!--categ start -->
-<section id="categ" class="categ" style="margin-top: -10rem; margin-bottom: -10rem;">
-			<div class="container">
-				<div class="section-header mb-4">
-                <h2 class="title-promo">NOS PRODUITS</h2>
-                </div><!--/.section-header-->
-				<!-- <div class="categ-content">
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="single-categ animated fadeInLeft">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider1.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/ÉLECTRICITE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-								<div class="single-categ-txt">
-									<h2 class="mb-2">Eclairage</h2>
-									<h3>Total number cat</h3>
-									<p>
-										Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.... 
-									</p>
-								</div>
-							</div>
-							
-						</div>
-						<div class="col-sm-4">
-							<div class="single-categ animated fadeInUp">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider2.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/ÉLECTRICITE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-								<div class="single-categ-txt">
-									<h2 class="mb-2">Divers</h2>
-									<h3>Total number cat</h3>
-									<p>
-										Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.... 
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="single-categ animated fadeInRight">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider3.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/ÉLECTRICITE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-								<div class="single-categ-txt">
-									<h2 class="mb-2">Sécurité</h2>
-									<h3>Total number cat</h3>
-									<p>
-										Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.... 
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
+<section id="categ" class="py-2 text-dark">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-uppercase">Nos Produits</h2>
+    </div>
 
-                <!-- Start Modif single-categ - Ravo -->
-                <div class="categ-content">
-					<div class="row">
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInLeft">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider1.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/ÉLECTRICITE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>     
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
+    <div class="row g-4">
+      <!-- Exemple de bloc catégorie -->
+      <%= for {image, title, path, anim} <- [
+        {"slider1.png", "Électricité", "/boutique/ÉLECTRICITE", "fadeInLeft"},
+        {"slider2.png", "Luminaire", "/boutique/LUMINAIRES", "fadeInUp"},
+        {"slider3.png", "Plomberie", "/boutique/PLOMBERIE", "fadeInRight"},
+        {"slider4.png", "Sanitaire", "/boutique/SANITAIRE", "fadeInRight"},
+        {"slider5.png", "Garage", "/boutique/GARAGE", "fadeInLeft"},
+        {"slider6.png", "Serrurerie", "/boutique/SERRURERIE", "fadeInUp"},
+        {"slider7.jpg", "Peinture", "/boutique/PEINTURE", "fadeInRight"},
+        {"slider8.png", "Divers", "/boutique/DIVERS", "fadeInRight"}
+      ] do %>
+        <div class="col-12 col-sm-6 col-md-3">
+          <a href={path} class="text-decoration-none text-dark">
+            <div class={"card bg-white text-black h-100 border-0 animated #{anim}"}>
+              <div class="position-relative overflow-hidden">
+                <img src={Routes.static_path(@conn, "/images/#{image}")} style="height: 20rem;" class="img-fluid rounded" alt="Image catégorie">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark bg-opacity-50 opacity-0 hover-opacity-100 transition">
+                  <span class="btn btn-outline-light">Découvrir</span>
+                </div>
+              </div>
+              <div class="card-body text-center">
+                <h5 class="card-title mb-0"><%= title %></h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
 
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Eléctricité</h2>
-                                </div>
-
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInUp">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider2.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/LUMINAIRES">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Luminaire</h2>
-								</div>
-                                
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInRight">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider3.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/PLOMBERIE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Plomberie</h2>
-								</div>
-
-							</div>
-						</div>
-
-                        <div class="col-sm-3">
-							<div class="single-categ animated fadeInRight">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider4.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/SANITAIRE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Sanitaire</h2>
-								</div>
-
-							</div>
-						</div>
-
-					</div>
-
-                    <div class="row">
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInLeft">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider5.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/GARAGE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Garage</h2>
-                                </div>
-
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInUp">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider6.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/SERRURERIE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Serrurerie</h2>
-								</div>
-
-							</div>
-						</div>
-
-						<div class="col-sm-3">
-							<div class="single-categ animated fadeInRight">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider7.jpg")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/PEINTURE">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Peinture</h2>
-								</div>
-
-							</div>
-						</div>
-
-                        <div class="col-sm-3">
-							<div class="single-categ animated fadeInRight">
-								<div class="single-categ-img">
-									<img src={Routes.static_path(@conn, "/images/slider8.png")} alt="categ image">
-									<div class="single-categ-img-overlay">
-                                        <a href="/boutique/DIVERS">
-                                            <button class="btn-cart valide-cart in-categ">
-                                                <span class="single_product_addtocart">Découvrir</span>                                                    
-                                            </button>
-                                        </a>
-                                    </div>
-								</div>
-
-                                
-                                <div class="single-categ-txt">
-									<h2 class="mb-2">Divers</h2>
-								</div>
-                                
-							</div>
-						</div>
-
-					</div>
-
-				</div>
-			</div><!--/.container-->
-			
-</section><!--/.categ-->
 		<!--categ end -->
 
     <!-- Start Partners -->
-    <div class="partners" style="display: inline-block; position: relative; width: auto;">
-        <div class="row" style="
-                color: #272962;
-                font-family: sans-serif;
-                margin-right: auto;
-                margin-left: auto;
-                position: relative;
-                text-align: center;
-                top: -10px;
-            ">
-            <div class="col-12">
-            <h2>Nos Partenaires</h2>
+    <section class="py-5">
+        <div class="text-center">
+            <h2 class="mb-4 text-uppercase fw-bold text-dark">Nos Partenaires</h2>
+
+            <div class="row justify-content-center align-items-center g-4">
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://hager.com/fr" target="_blank">
+                <img src="/images/partners/POSITION 1 HAGER.png" alt="Hager" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://www.legrand.fr/" target="_blank">
+                <img src="/images/partners/POSITION 2 Legrand-Logo.png" alt="Legrand" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://www.se.com/fr/fr/" target="_blank">
+                <img src="/images/partners/POSITION 3 SCHNEIDER.png" alt="Schneider" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://www.grk.fr/" target="_blank">
+                <img src="/images/partners/POSITION 4 GRK.png" alt="GRK" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://www.first-plast.fr/" target="_blank">
+                <img src="/images/partners/POSITION 5 FIRST.png" alt="First Plast" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://rabalux.fr/home" target="_blank">
+                <img src="/images/partners/POSITION 6 RABALUX.png" alt="Rabalux" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
+            <div class="col-2 col-sm-4 col-md-3 col-lg-1">
+                <a href="https://lebenoid.fr/" target="_blank">
+                <img src="/images/partners/POSITION 7 EBENOID.png" alt="Ebenoid" style="width: 200px;" class="img-fluid partner-logo mx-auto d-block">
+                </a>
+            </div>
             </div>
         </div>
-        <div class="row" style="
-            align-content: center;
-            display: inline-flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            /* padding-left: 4rem; */
-            width: 100%;">
-        <style>
-            /* Adjust the size of the col for each picture */
-            .col-md-2.col-sm-4 {
-                display: inline-block;
-                float: left;
-                margin: 0 2rem;
-                padding: 0px;
-                width: 12%;
-            }
-        </style>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://hager.com/fr">
-                    <img src="/images/partners/POSITION 1 HAGER.png" alt="Partner 1" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://www.legrand.fr/">
-                    <img src="/images/partners/POSITION 2 Legrand-Logo.png" alt="Partner 2" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://www.se.com/fr/fr/">
-                    <img src="/images/partners/POSITION 3 SCHNEIDER.png" alt="Partner 3" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4" style="margin: 0;">
-                <a href="https://www.grk.fr/">
-                    <img src="/images/partners/POSITION 4 GRK.png" alt="Partner 4" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://www.first-plast.fr/">
-                    <img src="/images/partners/POSITION 5 FIRST.png" alt="Partner 5" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://rabalux.fr/home">
-                    <img src="/images/partners/POSITION 6 RABALUX.png" alt="Partner 6" class="partner-logo">
-                </a>
-            </div>
-            <div class="col-md-2 col-sm-4">
-                <a href="https://lebenoid.fr/">
-                    <img src="/images/partners/POSITION 7 EBENOID.png" alt="Partner 7" class="partner-logo">
-                </a>
-            </div>
-            
-        </div>
-    </div>
-    <!-- End Partners -->
+    </section>
+
 
 	<!-- Horaires d'ouverture -->
-	<div class="timetable">
-		<h2>Nos horaires d'ouverture :</h2>
-		<img class="clock" src="/images/red-clock-icon.png">
-		<table class="timeline">
-			<tbody>
-			<tr>
-				<th class="day">Lundi</th>
-				<th class="day">Mardi</th>
-				<th class="day">Mercredi</th>
-				<th class="day">Jeudi</th>
-				<th class="day">Vendredi</th>
-				<th class="day" style="border: none">Samedi</th>
-				<!-- <th class="day" style="border: none">Dimanche</th> -->
-			</tr>
-			<tr>
-				<td>07:30-12:30</td>
-				<td>07:30-12:30</td>
-				<td>07:30-12:30</td>
-				<td>07:30-12:30</td>
-				<td>08:00-12:30</td>
-				<td style="border: none">08:00-12:30</td>
-				<!-- <td style="border: none">08:00-12:30</td> -->
-			</tr>
-			<tr>
-				<td>14:00-16:45</td>
-				<td>14:00-16:00</td>
-				<td>14:00-16:45</td>
-				<td>14:00-16:45</td>
-				<td>14:00-16:45</td>
-				<td colspan="1" style="border: none"></td>
-				<!-- <td style="border: none">Férmé</td> -->
-			</tr>
-			</tbody>
-		</table>
-	</div>
+	<section class="py-1 text-dark">
+        <div class="container">
+            <div class="d-flex justify-content-center align-items-center align-items-center mb-4">
+            <img src="/images/red-clock-icon.png" alt="Horloge" class="me-3" style="width: 40px; height: 40px;">
+            <h2 class="mb-0 fw-bold text-uppercase text-center">Nos horaires d'ouverture</h2>
+            </div>
+
+            <div class="table-responsive">
+            <table class="table text-center align-middle">
+                <thead class="table">
+                <tr>
+                    <th>Lundi</th>
+                    <th>Mardi</th>
+                    <th>Mercredi</th>
+                    <th>Jeudi</th>
+                    <th>Vendredi</th>
+                    <th>Samedi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>07:30 - 12:30</td>
+                    <td>07:30 - 12:30</td>
+                    <td>07:30 - 12:30</td>
+                    <td>07:30 - 12:30</td>
+                    <td>08:00 - 12:30</td>
+                    <td>08:00 - 12:30</td>
+                </tr>
+                <tr>
+                    <td>14:00 - 16:45</td>
+                    <td>14:00 - 16:00</td>
+                    <td>14:00 - 16:45</td>
+                    <td>14:00 - 16:45</td>
+                    <td>14:00 - 16:45</td>
+                    <td class="text-muted">Fermé</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </section>
+
 	<!-- Horaires d'ouverture -->
 
     <!-- Start remove Arrivage with '#"- Ravo -->         

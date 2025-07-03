@@ -21,375 +21,348 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<!-- jQuery (si Bootstrap v4 ou avant) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Popper.js (pour les positionnements des dropdowns) -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
 
   <body>
-		<header id="home" class="slide-hero">
-			<div class="top-area">
-				<div class="header-area">
-				    <nav class="navbar navbar-default bootsnav  navbar-sticky">
-				        <form action={:search} method="post" class="s" id="search-nav" phx-submit="search-item">
+	<header id="home" class="slide-hero text-white fixed-top" style="max-height: 100px;">
+		<!-- LIGNE 1 : Logo et barre de recherche -->
+		<div class="d-none d-md-flex align-items-center justify-content-between flex-wrap" style="font-size: 15px; background-color: #630b05;">
+
+			<!-- Logo à gauche -->
+			<a class="fs-4 fw-bold" href={Routes.page_path(@conn, :index)}>
+				<img src={Routes.static_path(@conn, "/images/fracomex.png")} alt="Logo" style="height: 35px;margin-left: 10%;" />
+			</a>
+
+			<!-- Infos et liens à droite -->
+			<div class="d-flex flex-wrap align-items-center gap-3 text-white small justify-content-end text-end" style="margin-right: 5%;">
+
+				<!-- Coordonnées -->
+				<div><a class="nav-link text-white" href="https://www.facebook.com/fracomex/" target="_blank"><i class="fab fa-facebook fa-lg"></i></a></div>
+				<div><a class="nav-link text-white" href="https://www.instagram.com/fracomex/?hl=fr" target="_blank"><i class="fab fa-instagram fa-lg"></i></a></div>
+				<div><i class="fa fa-phone me-1"></i> 0269 61 25 38</div>
+				<div><i class="fa-solid fa-location-dot me-1"></i> ZI KAWENI</div>
+				<div><i class="bi bi-envelope me-1"></i> devis.fracomex@gmail.com</div>
+			</div>
+		</div>
+
+		<!-- LIGNE 2 : Navigation principale -->
+		<nav class="navbar navbar-expand-md rounded-0 justify-content-start" style="background-color: #e41201;z-index: 1030;">
+			<div class="d-flex flex-column justify-content-start flex-md-row align-items-start sticky-top">
+
+				<!-- colonne 1 Menu (caché sur mobile, visible après toggle) -->
+				<div class="collapse navbar-collapse justify-content-start flex-wrap w-100 px-2">
+					<ul class="navbar-nav me-auto mb-md-0 d-flex flex-wrap align-items-center gap-0" style="width: 50rem;font-size: 0.9rem;">
+						<li class="nav-item">
+							<div id="mainNavbar" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+								<a class="nav-link text-white all d-flex align-items-center py-1 px-2" id="sidebarCollapse" href="#">
+								<span class="lnr lnr-menu me-1"></span>
+								<span class="d-none d-md-inline">Tous les produits</span></a>
+							</div>
+						</li>
+						<li class="nav-item d-none d-md-block">
+						<a class="nav-link text-white py-1 px-2" href={Routes.product_path(@conn, :index)}>Boutique</a>
+						</li>
+						<li class="nav-item d-none d-md-block">
+						<a class="nav-link text-white py-1 px-2" href="/contact">Contact</a>
+						</li>
+					</ul>
+				</div>
+
+				 <!-- colonne 2 -->
+				<ul class="navbar-nav d-flex flex-row">
+
+					<ul class="navbar-nav d-flex flex-row justify-content-between align-items-center w-100 d-md-none px-2 gap-2">
+						<li class="nav-item">
+							<a class="fs-4 fw-bold" href={Routes.page_path(@conn, :index)}>
+							<img src={Routes.static_path(@conn, "/images/fracomex.png")} alt="Logo" style="height: 30px;" />
+							</a>
+						</li>
+						<li class="nav-item">
+							<a id="toggle-sidebar" class="nav-link text-white all d-flex align-items-center py-1 px-2" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar" href="#">
+								<span class="lnr lnr-menu me-1" style="font-size: 16px;"></span>
+								<span class="d-none d-md-inline">Tous les produits</span>
+							</a>
+						</li>
+					</ul>
+				
+					<li class="nav-item d-flex align-items-center">
+						<button class="btn btn-sm text-whitet" style="color: white;" id="toggle-search" type="button">
+							<i class="fas fa-search" id="search-icon"></i>
+						</button>
+
+						<!-- Formulaire de recherche masqué au départ -->
+						<form action={:search} method="post" phx-submit="search-item" class="d-flex align-items-center mb-0 ms-2 visually-hidden" id="search-nav">
 							<input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
-							<input type="search" class="sb" name="q" autocomplete="off" placeholder="Recherche produits" />
-							<button type="submit" class="sbtn lnr lnr-magnifier"></button>
-							<i class="sbtn lnr lnr-cross" id="close-search"></i> 
-						</form> 
-						<div class="nav-page"  data-in="fadeInDown" data-out="fadeOutUp">
-							<ul class="navigation">
-									<li><a href="/contact"><span class="lnr lnr-map-marker"></span> ZI KAWENI </a></li>	
-									<li><a href="/contact"><span class="lnr lnr-phone-handset"></span> 0269 61 25 38</a></li>
-									<li><a href="/contact"><span class="lnr lnr-envelope"></span> devis.fracomex@gmail.com</a></li>
-									<li><a href="https://www.facebook.com/fracomex/"><i class="fab fa-facebook"></i> facebook</a></li>
-									<li><a href="https://www.instagram.com/fracomex/?hl=fr"><i class="fab fa-instagram"></i> instagram</a></li>
-							</ul>
-							<ul class="link-nav">
-									<li><a href="/boutique">Boutique</a></li>
-									<li><a href="/contact">Contact</a></li>
-							</ul>
-						</div>
-						<div class="container" style="top: -20px;">            
-				            <div class="attr-nav"  data-in="fadeInDown" data-out="fadeOutUp">
-				                <ul>
-				                	<li class="search">
-				                		<a id="search" href=""><span class="lnr lnr-magnifier"></span></a>
-				                	</li>
-				                	<li class="nav-setting dropdown">
-				                		<a href={Routes.users_path(@conn, :signin)} class="dropdown-toggle" data-toggle="dropdown"><span class="lnr lnr-user"></span></a>
 
-										<%= if not is_nil(Plug.Conn.get_session(@conn, :user_id)) do %>
-											<ul class="dropdown-menu s-cate" id="user-icon-dropdown">
-												<li class="scroll"><a href={Routes.users_path(@conn, :my_orders)}><span class=""></span> Mes commandes</a></li>
-												<li class="scroll"><a href={Routes.users_path(@conn, :my_account)}><span class="lnr lnr-user"></span> Mon profil</a></li>
-												<li class="scroll"><a href={Routes.users_path(@conn, :my_address)}><span class="lnr lnr-map-marker"></span> Mon adresse</a></li>
-												<li class="scroll"><a href={Routes.users_path(@conn, :signout)} style="color: red; opacity: 0.75;"><span class="lnr lnr-exit"></span> Se déconnecter</a></li>
-											</ul>
-										 <% end %>
-				                	</li>
-				                    <li class="dropdown">
-				                        <a href={Routes.cart_path(@conn, :index)} class="dropdown-toggle" data-toggle="dropdown">
-				                            <span class="lnr lnr-cart"></span>
-											<span class="badge badge-bg-1">
-												<%= if not is_nil(@cart) do %>
-													<%= Enum.count(@cart) %>
-												<% else %>
-													0
-												<% end %>
-											</span>
-				                        </a>
+							<input type="search" name="q" placeholder="Recherche produits"
+							class="form-control form-control-sm me-2" style="min-width: 300px;" />
 
-										<ul class="dropdown-menu cart-list s-cate">
-											<%= if not is_nil(@cart) and @cart != [] do %>
-												<%= for i <- 0..Enum.count(@cart) - 1  do %>
-													<li class="single-cart-list">
-														<a href="#" class="photo">
-															<img src={"/images/big-items/#{Fracomex.Utilities.product_in_cart(@cart, i).image}"} class="cart-thumb" alt="image" />
-														</a>
+							<button type="submit" class="btn btn-sm text-white">
+							<i class="fas fa-search"></i>
+							</button>
+						</form>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href={Routes.users_path(@conn, :signin)} class="nav-link"><i class="fa fa-solid fa-user fa-lg"></i></a>
+					</li>
+					<li class="nav-item dropdown position-relative">
 
-														<div class="cart-list-txt">
-															<h6>
-																<a href={Routes.cart_path(@conn, :index)}>
-																	<%= Fracomex.Utilities.product_in_cart(@cart, i).caption %>
-																</a>
-															</h6>
-															<p><%= Enum.at(@cart, i).quantity %> x - <span class="price"><%= Fracomex.Utilities.price_format(Fracomex.Utilities.product_in_cart(@cart, i).sale_price_vat_excluded) %> €</span></p>
-														</div>
-													</li>
-													
-												<% end %>
-											<% end %>
+						<a class="nav-link dropdown-toggle text-white" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-shopping-cart fa"></i>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark" style="font-size: 0.7rem;">
+							<%= if not is_nil(@cart), do: Enum.count(@cart), else: 0 %>
+							</span>
+						</a>
 
-											<li class="total">
-												<%= if not is_nil(@sum_cart) and @sum_cart != 0 do %>
-													<h4>Total: <%= Fracomex.Utilities.price_format_from_float(@sum_cart) %> €</h4>
-												<% end %>
-											</li>
-
-										<%= if not is_nil(@cart) and @cart != [] do %>
-											<%= form_for nil, "/valider-commande", fn f -> %>
-												<input type="hidden" name="order_id" value={Plug.Conn.get_session(@conn, :current_order)}>
-												<button style="" class="button-cart validate-cart">
-												Valider panier
-													<input style="display: none;" type="submit" class="single_product_addtocart" value="">
-												</button>
-											<% end %>
-										<% else %>
-											<p style="text-align: center;">Votre panier est vide.</p>
-										<% end %>
-										</ul>
-
-				                    </li>
-				                </ul>
-				            </div>
-				            <div class="navbar-header"  data-in="fadeInDown" data-out="fadeOutUp">
-				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-				                    <i class="fa fa-bars"></i>
-				                </button>
-				                <a class="navbar-brand" href={Routes.page_path(@conn, :index)}>
-									<img src={Routes.static_path(@conn, "/images/fracomex.png")}>
-								</a>
-
-				            </div>
-				            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
-				                <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
-									<!--
-				                    <li class={"scroll #{if @conn.request_path=="/", do: "active"}"}><a href={Routes.page_path(@conn, :index)}>Accueil</a></li>
-				                    <li class={"dropdown scroll #{if @conn.request_path=="/product", do: "active"}"}>
-										<a href={Routes.product_path(@conn, :index)} class="dropdown" data-toggle="">
-											Boutique
+						<!-- Dropdown menu -->
+						<ul class="dropdown-menu dropdown-menu-end cart-list s-cate" aria-labelledby="cartDropdown" style="min-width: 300px; position: absolute; z-index: 1050; right: 0; top: 100%;">
+							<%= if not is_nil(@cart) and @cart != [] do %>
+								<%= for i <- 0..Enum.count(@cart) - 1  do %>
+								<li class="single-cart-list d-flex align-items-start p-2">
+									<a href="#" class="me-2">
+									<img src={"/images/big-items/#{Fracomex.Utilities.product_in_cart(@cart, i).image}"} class="cart-thumb" alt="image" style="width: 50px; height: auto;" />
+									</a>
+									<div class="cart-list-txt">
+									<h6 class="mb-1" style="font-size: 0.9rem;">
+										<a href={Routes.cart_path(@conn, :index)} class="text-dark text-decoration-none">
+										<%= Fracomex.Utilities.product_in_cart(@cart, i).caption %>
 										</a>
-
-										<ul class="dropdown-menu itemfamilies-dropdown-menu s-cate">
-											<%= for family <- Fracomex.Products.list_families() do %>
-												 <li class="scroll"><a href="#blog"><%= family.caption %></a></li>
-											<% end %>
-										 </ul>
-									</li>
-									
-									
-				                    <li class="dropdown scroll">				                        
-										<a href="#" class="dropdown" data-toggle="dropdown" >
-				                            dropdown
-				                        </a>
-				                        <ul class="dropdown-menu">
-				                           <li class="scroll"><a href="#blog">dropdown1</a></li>
-										   <li class="scroll"><a href="#blog">dropdown2</a></li>
-										   <li class="scroll"><a href="#blog">dropdown3</a></li>
-				                        </ul>
-				                    </li>
-									
-				                    
-				                    <li class={"scroll #{if @conn.request_path=="/contact", do: "active"}"}><a href={Routes.page_path(@conn, :contact)}>contact</a></li> -->
-				                <li class="scroll in-top">
-									<a style="cursor: pointer" class="all">
-										<span class="lnr lnr-menu" style="font-size: 16px;"></span> Tous les produits
-									</a>
-								</li>
-
-								<%= for family <- Fracomex.Products.list_all_families do %> <!-- Added the rest of the category in header menu page d'acceuil fracomex - Ravo-->
-									<li class="scroll in-top">
-										<a href={Routes.product_path(@conn, :family, family.caption)} style={"color: #{if family.id == @selected_family_id and String.contains?(@conn.request_path, "/boutique/"), do: "#000"};"}> <!-- Change the color "#e41201" to "#000" when current - Ravo-->
-											<%= String.capitalize(family.caption) %>
-										</a>
-									</li>
-								<% end %>
-								</ul>
-				            </div>
-				        </div>
-				    </nav>
-					<!--div class="sidepanel">
-						<div class="animated fadeIn">
-							<h3 class="title-panel">Catégories des produits</h3>
-							<ul class="content-sub" style="overflow-y: auto; min-height: 500px;">
-								<%= for family <- Fracomex.Products.list_families_with_subs do %>
-									<li class="sub" data-tab={"tab-#{family.id}"}>
-									<a href="##">
-									<%= family.caption %> 
-									<span class="lnr lnr-chevron-right"></span>
-									</a>
-									</li>
-								<% end %>
-							</ul>
-						</div>
-							<%= for family <- Fracomex.Products.list_families_with_subs do %>
-								<div id={"tab-#{family.id}"} class="tab-content">
-									<ul class="" style="overflow-y: auto; min-height: 460px;">
-										<%= for sub_family <- family.sub_families do %>
-											<li class="">
-											<a href="##"><%= sub_family.caption %></a>
-											</li>
-										<% end %>
-									</ul>
-									<a class="return close-ul" style="cursor: pointer;">	
-									<i class="fa fa-chevron-left close-ul" aria-hidden="true"></i>
-									Retour
-									</a>
-								</div>
-							<% end %>
-
-						<div class="line"></div>
-						<div class="hm-side-menu">
-						<ul>
-							<li class="scroll in-panel"><a href="/">Accueil</a></li>
-							<li class="scroll in-panel"><a href="/boutique">Boutique</a></li>
-							<li class="scroll in-panel"><a href="/contact">contact</a></li>
-							
-						</ul>
-						</div>
-					 <i class="fa fa-times close-side" aria-hidden="true" style="cursor: pointer;"></i>
-					</div-->
-					<div class="sidepanel">
-						<div class="drop-wrapper">
-							<h4 class="title-panel">Catégories des produits</h4>
-							<ul class="content-sub" style="overflow-y: auto; min-height: 600px; height: 650px;">
-								<%= for family <- Fracomex.Products.list_families_with_subs do %>
-								<li class="sub" data-target={"#dropright-#{family.id}"}>
-									<a style="display: block;" href={Routes.product_path(@conn, :family, family.caption)}>
-										<%= family.caption %> 
-										<%= if length(family.sub_families) > 0 do %><span class="lnr lnr-chevron-right"></span><% end %>
-									</a>
-
-									<div class="drop-menu dropright" id={"dropright-#{family.id}"}>
-										<ul class="ul-drop-menu" style="overflow-y: auto; min-height: 600px; height: 650px;">
-											<%= for sub_family <- family.sub_families do %>
-												<li class="li-drop-menu">
-													<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)}><%= String.capitalize(sub_family.caption) %></a>
-												</li>
-											<% end %>
-										</ul>
-										<i class="lnr lnr-cross close-drop-menu" aria-hidden="true" style="cursor: pointer;"></i>
+									</h6>
+									<p class="mb-0" style="font-size: 0.85rem;">
+										<%= Enum.at(@cart, i).quantity %> x - 
+										<span class="price"><%= Fracomex.Utilities.price_format(Fracomex.Utilities.product_in_cart(@cart, i).sale_price_vat_excluded) %> €</span>
+									</p>
 									</div>
 								</li>
 								<% end %>
-							</ul>
-						</div>		
-					<i class="lnr lnr-cross close-side" aria-hidden="true" style="cursor: pointer;"></i>
-					</div>
-					<div class="overlay-panel" style=" display: none;"></div>
-				</div>
-			    <div class="clearfix"></div>
 
+								<li class="dropdown-divider my-2"></li>
+
+								<li class="px-3 pb-2">
+								<h6>Total : <%= Fracomex.Utilities.price_format_from_float(@sum_cart) %> €</h6>
+
+								<!-- Formulaire de validation -->
+								<%= form_for nil, "/valider-commande", fn f -> %>
+									<input type="hidden" name="order_id" value={Plug.Conn.get_session(@conn, :current_order)}>
+									<button class="btn btn-sm btn-success w-100 mt-1" type="submit">
+									Valider le panier
+									</button>
+								<% end %>
+
+								<!-- Lien vers la page panier -->
+								<a href={Routes.cart_path(@conn, :index)} class="btn btn-primary btn-sm w-100 mt-2">
+									Voir le panier
+								</a>
+
+								</li>
+							<% else %>
+								<li class="text-center p-3">Votre panier est vide.</li>
+							<% end %>
+						</ul>
+					</li>
+				</ul>
 			</div>
-		</header>
-    <%= @inner_content %>
+		</nav>
 
-	<!--prefooter start -->
-		<section id="prefooter"  class="prefooter">
-			<div class="container">
-				<div class="hm-footer-details">
-					<div class="row">
-						<div class=" col-md-4 col-sm-6 col-xs-12">
-							<div class="hm-footer-widget">
-								<div class="hm-foot-title">
-									<h4 class="primary-color">Informations </h4>
-									
-								</div>
-								<div class="hm-foot-menu">
-									<p class="mb-4">
-									Entreprise d'électricité générale et professionnelle, luminaires, plomberie, Sanitaire, Peinture, Serrurerie, Quincaillerie.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class=" col-md-4 col-sm-6 col-xs-12">
-							<div class="hm-footer-widget">
-								<div class="hm-foot-title">
-									<h4 class="primary-color">Navigation</h4>
-								</div>
-								<div class="hm-foot-menu">
-									<ul>
-										<li class="all"><a>Nos produits</a></li>
-										<li><a href={Routes.product_path(@conn, :index)}>Boutique</a></li>
-										<li><a href="/contact">Contactez-nous</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-				
-						<div class=" col-md-4 col-sm-6 col-xs-12">
-							<div class="hm-footer-widget">
-								<div class="hm-foot-title">
-									<h4 class="primary-color">Contact</h4>
-								</div>
-								<div class="hm-foot-menu">
-										<p><span class="lnr lnr-map-marker"></span> Adresse: BP 512 Avenue de l'Europe ZI Kawéni- Mamoudzou</p>
-										<p><span class="lnr lnr-phone-handset"></span> Tél: 0269 61 25 38</p>
-										<p><span class="lnr lnr-envelope"></span> E-mail: devis.fracomex@gmail.com</p>							
-								</div>
-							</div>
-						</div>
-
-						<!-- Start modification of the social's location - Ravo -->
-						<div class="col-md-12">
-							Retrouvez-nous sur
-							<div class="footer-social" style="">
-								<a href="https://www.facebook.com/fracomex/">
-									<i class="fab fa-facebook fa-2x" href="#"></i>
-								</a>
-								<a href="https://www.instagram.com/fracomex/?hl=fr">
-									<i class="fab fa-instagram fa-2x" href="#"></i>
-								</a>
-							</div>
-						</div>
-						<!-- End modification of the social's location - Ravo -->
-
-					</div>
+		<div id="sidebar" class="active collapse" style="max-height: 100vh;overflow-y: auto;">
+			<div class="img bg-wrap text-center py-4">
+				<div class="user-logo">
+				<h3>Catégorie des produits</h3>
 				</div>
 			</div>
-		</section>
-	<!--/prefooter end-->
-	<div class="card cookie-alert">
-	<div class="card-body">
-		<p class="card-text">
-Nous utilisons des cookies pour améliorer votre expérience sur notre site web. En naviguant sur ce site, vous acceptez que nous utilisions des cookies. </p>
-		<div class="btn-toolbar" style="display: flex; justify-content: space-between;">
-		<button class="refuse-cookie text-start">
-            <a class="a-refuse-cookie">Refuser</a>
-        </button>
-		<button class="accept-cookie text-end">
-            <a class="a-accept-cookie accept-cookies" href="#">Accepter</a>
-        </button>
+
+			<ul class="list-unstyled components mb-5" id="sidebar-accordion">
+				<%= for family <- Fracomex.Products.list_families_with_subs() do %>
+				<li class="position-relative">
+					<%= if length(family.sub_families) > 0 do %>
+					<!-- Famille avec sous-catégories -->
+					<div class="d-flex justify-content-between align-items-center w-100">
+						<a href={Routes.product_path(@conn, :family, family.caption)} class="text-decoration-none">
+							<%= family.caption %>
+						</a>
+							<span class="lnr lnr-chevron-down"data-bs-toggle="collapse"
+							data-bs-target={"#collapse-family-#{family.id}"}
+							aria-expanded="false"
+							aria-controls={"collapse-family-#{family.id}"}
+							style="line-height: 1;margin-right: 50px;"></span>
+					</div>
+
+					<div id={"collapse-family-#{family.id}"} 
+						class="collapse ps-2"
+						data-bs-parent="#sidebar-accordion">
+						<ul class="ul-drop-menu" style="overflow-y: auto; max-height: 650px;">
+						<%= for sub_family <- family.sub_families do %>
+							<li class="li-drop-menu">
+							<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)}>
+								<%= String.capitalize(sub_family.caption) %>
+							</a>
+							</li>
+						<% end %>
+						</ul>
+					</div>
+					<% else %>
+					<!-- Famille sans sous-catégorie -->
+					<a href={Routes.product_path(@conn, :family, family.caption)} class="d-block text-dark">
+						<%= family.caption %>
+					</a>
+					<% end %>
+				</li>
+				<% end %>
+			</ul>
 		</div>
-	</div>
-	</div>
-    <!--footer start-->
-		<footer id="footer"  class="footer">
-			<div class="container">
-				<div class="hm-footer-copyright text-center">
-					<!--div class="footer-social">
-						<a href="#"><i class="fab fa-facebook"></i></a>	
-						<a href="#"><i class="fab fa-instagram"></i></a>
-						<a href="#"><i class="fab fa-linkedin"></i></a>
-						<a href="#"><i class="fab fa-pinterest"></i></a>
-						<a href="#"><i class="fab fa-behance"></i></a>	
-					</div-->
-					<p>
-						&copy;copyright. | <a href="http://www.phidia.fr" style="font-weight: bold;">Phidia</a> | 2024
-					</p>
-				</div>
+	</header>
+
+	<%= @inner_content %>
+
+	<section id="prefooter" class="py-1 bg-black text-white">
+		<div class="container">
+			<div class="row gy-4">
+			<!-- Informations -->
+			<div class="col-md-4">
+				<h5 class="text-danger fw-bold">Informations</h5>
+				<p>
+				Entreprise d'électricité générale et professionnelle : luminaires, plomberie, sanitaire, peinture, serrurerie, quincaillerie.
+				</p>
 			</div>
-			<!--/.scroll-Top-->
-			<div id="scroll-Top">
-				<div class="return-to-top">
-					<i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
-				</div>
+
+			<!-- Navigation -->
+			<div class="col-md-3">
+				<h5 class="text-danger fw-bold">Navigation</h5>
+				<ul class="list-unstyled">
+				<li><a class="text-white" style="cursor:pointer;" onclick="document.querySelector('.all').click()">Nos produits</a></li>
+				<li><a href={Routes.product_path(@conn, :index)} class="text-white">Boutique</a></li>
+				<li><a href="/contact" class="text-white">Contactez-nous</a></li>
+				</ul>
 			</div>
-			
-		</footer>
-		</body>
+
+			<!-- Contact -->
+			<div class="col-md-5">
+				<h5 class="text-danger fw-bold">Contact</h5>
+				<ul class="list-unstyled">
+					<li><i class="fas fa-map-marker-alt me-2 text-danger"></i>BP 512 Avenue de l'Europe ZI Kawéni - Mamoudzou</li>
+					<li><i class="fas fa-phone me-2 text-danger"></i>0269 61 25 38</li>
+					<li><i class="fas fa-envelope me-2 text-danger"></i>devis.fracomex@gmail.com</li>
+					<!-- Réseaux sociaux -->
+					<li class="d-flex justify-content-start gap-3"><a href="https://www.facebook.com/fracomex/" target="_blank" class="text-primary"><i class="fab fa-facebook fa-2x"></i></a>
+					<a href="https://www.instagram.com/fracomex/?hl=fr" target="_blank" class="text-danger">
+						<i class="fab fa-instagram fa-2x"></i>
+					</a></li>
+				</ul>
+			</div>
+
+			</div>
+		</div>
+		</section>
+		<!-- Prefooter End -->
+
+		<!-- Cookie Alert -->
+		<div class="card cookie-alert shadow-sm fixed-bottom m-3" style="z-index:1050;">
+		<div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+			<p class="mb-0">
+			Nous utilisons des cookies pour améliorer votre expérience sur notre site web. En continuant, vous acceptez notre politique.
+			</p>
+			<div>
+			<button class="btn btn-outline-secondary me-2 refuse-cookie">Refuser</button>
+			<a href="#" class="btn btn-primary accept-cookies">Accepter</a>
+			</div>
+		</div>
+		</div>
+
+		<!-- Footer
+		<footer class="footer bg-dark text-white text-center py-3 position-relative">
+		<div class="container">
+			<p class="mb-0">
+			&copy; 2024 | Réalisé par <a href="http://www.phidia.fr" class="text-white fw-bold">Phidia</a>
+			</p>
+		</div>
+
+		
+		<a href="#" class="position-absolute top-0 end-0 m-3 text-white" title="Haut de page">
+			<i class="fa fa-angle-up fa-2x"></i>
+		</a>
+		</footer> -->
+	</body>
   
 <script>  
-//category side panel
-	$('.all').click(function() {
-    'use strict'
-  $(".sidepanel").addClass("animated slideInLeft").show(); 		
-  var spWidth = $('.sidepanel').width();
-  var spMarginLeft = parseInt($('.sidepanel').css('margin-left'),10);
-  var w = (spMarginLeft >= 0 ) ? spWidth * -1 : 0;
-  var cw = (w < 0) ? -w : spWidth-22;
-  $('.sidepanel').animate({
-    marginLeft:w
+const desktopQuery = window.matchMedia("(min-width: 768px)");
+const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+if (desktopQuery.matches) {
+  // Écrans d’ordi
+  document.addEventListener('click', function (event) {
+    const sidebar = document.getElementById('sidebar');
+    // Si le sidebar n’est pas visible, rien à faire
+	if (!sidebar.classList.contains('show')) return;
+
+	// Si on clique à l’intérieur du sidebar, ne rien faire
+	if (sidebar.contains(event.target)) return;
+
+	// Si on clique à l’extérieur, on ajoute simplement 'active'
+	sidebar.classList.add('active');
   });
-  $('.sidepanel span').animate({
-    marginLeft:w
+}
+
+if (mobileQuery.matches) {
+  // Mobiles
+  document.addEventListener('click', function (event) {
+    const sidebar = document.getElementById('sidebar');
+    // Si le sidebar n’est pas visible, rien à faire
+	if (!sidebar.classList.contains('show')) return;
+
+	// Si on clique à l’intérieur du sidebar, ne rien faire
+	if (sidebar.contains(event.target)) return;
+
+	// Si on clique à l’extérieur, on ajoute simplement 'active'
+	sidebar.classList.remove('show');
   });
-  $(".overlay-panel").fadeIn(2000); 
-  $("body").addClass("fixed-position"); 
-});
-$(".close-side").click(function(){
-  var spWidth = $('.sidepanel').width();
-  var spMarginLeft = parseInt($('.sidepanel').css('margin-left'),10);
-  var w = (spMarginLeft >= 0 ) ? spWidth * -1 : 0;
-  var cw = (w < 0) ? -w : spWidth-22;
-  $('.sidepanel').animate({
-    marginLeft:w
-  });
-  $('.sidepanel span').animate({
-    marginLeft:w
-  });
-  $(".overlay-panel").fadeOut();  
-  $("body").removeClass("fixed-position"); 
+  const sidebar = document.getElementById('sidebar');
+  const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+
+  toggleSidebarBtn.addEventListener('click', function (e) {
+		e.preventDefault(); // évite de remonter en haut avec le href="#"
+		sidebar.classList.remove('show');
 	});
+}
+
+// search form
+ document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-search");
+    const searchForm = document.getElementById("search-nav");
+    const icon = document.getElementById("search-icon");
+
+    toggleBtn.addEventListener("click", function () {
+      const isHidden = searchForm.classList.contains("visually-hidden");
+
+      // Toggle visibility
+      searchForm.classList.toggle("visually-hidden");
+
+      // Toggle icon
+      if (isHidden) {
+        icon.classList.remove("fa-search");
+        icon.classList.add("fa-times");
+        searchForm.querySelector('input[name="q"]').focus();
+      } else {
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-search");
+      }
+    });
+  });
+
+//category side panel
+	
 </script>
 <script> 
 //password   
@@ -437,92 +410,4 @@ setTimeout(function(){
 })		
 </script>	
 
-
-  <!--script>
-  $('.item').each(function() {
-    var data = $(this).data('item');
-    var availableTags = [
-		data
-    ];
-	
-        $('.sb').autocomplete({
-            source: availableTags
-         });
-	});	 
-  </script-->
-<!--script>
-//margin dynamic in hover product
-let details_product = <%= Fracomex.Products.list_item_ids() %>
-for (let pas = 0; pas <= details_product; pas++) {
-  $("#product-"+pas).hover(function () {
-     
-    $("#name-"+pas).css({ "margin-top" : "150px","transition" : "0.3s", "background-color" : "white", "width" : "100%" });
-	  $("#price-"+pas).css({ "margin-top" : "220px","transition" : "0.3s", "background-color" : "white", "width" : "100%" });
-}, 
-function () {
-    $("#name-"+pas).css({ "margin-top" : "210px","transition" : "0.3s", "background" : "none"});
-	  $("#price-"+pas).css({ "margin-top" : "280px","transition" : "0.3s", "background" : "none"});
-});
-}
-</script-->
-<!--BadBooleanErrorscript>
-/* category ul li*/
-$(document).ready(function(){
-	$('ul #li-category').click(function(){
-    $('#li-category').removeClass('current-category');
-		$(this).addClass('current-category');
-	})
-});
-</script-->
-<!--script>
-//up $ down count cart
-function increaseCount(a, b) {
-	var input = b.previousElementSibling;
-	var value = parseInt(input.value, 10);
-	value = isNaN(value) ? 0 : value;
-	value++;
-	input.value = value;
-  }
-  function decreaseCount(a, b) {
-	var input = b.nextElementSibling;
-	var value = parseInt(input.value, 10);
-	if (value > 1) {
-	  value = isNaN(value) ? 0 : value;
-	  value--;
-	  input.value = value;
-	}
-  }
-</script-->  
-<!--script>
-//cart close
-  $( document ).ready(function() {
-	$(".cart-close").click(function(){
-		$(this).parents(".single-cart-list").fadeOut();
-	});
-	$(".cart-remove").click(function(){
-		$(".cart-product").fadeOut();
-	});
-  });
-</script-->
-<!--script>
-/* content ul li in side panel*/
-$(document).ready(function(){
-	$('.sub').click(function(){
-        var tab_id = $(this).attr('data-tab');
-        $('.content-sub').hide();
-        $('.sub').removeClass('current');
-        $('.tab-content').removeClass('current').addClass("animated fadeInLeft");
-        $(this).addClass('current');
-        $("#"+tab_id).addClass('current');
-    });
-    $('.close-ul').click(function(){
-        var tab_id = $(this).attr('data-tab');
-        $('.content-sub').addClass("animated fadeInRight").show();
-        $('.sub').removeClass('current');
-        $('.tab-content').removeClass('current');
-        $(this).addClass('current');
-        $("#"+tab_id).addClass('current');
-    }); 
-});
-</script-->
 </html>
