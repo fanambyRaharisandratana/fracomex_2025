@@ -5,14 +5,41 @@
   <div id="header-carousel" 
        class="carousel slide w-100" 
        data-bs-ride="carousel" 
-       style="max-width: 50rem;">
+       style="max-width: 50rem;margin-top:100px;">
+
+       <style>
+            .carousel-indicators.header-slide {
+                display: flex;
+                overflow-x: auto;
+                gap: 8px;
+                padding: 10px;
+                justify-content: center;
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .carousel-indicators.header-slide::-webkit-scrollbar {
+                display: none; /* Chrome */
+            }
+
+            .carousel-indicators.header-slide li {
+                background-color: red;
+                border-radius: 50%;
+                width: 12px;
+                height: 12px;
+                flex: 0 0 auto;
+            }
+
+            .carousel-indicators.header-slide li.active {
+                transform: scale(1.2);
+            }
+        </style>
 
     <!-- Indicators -->
     <ol class="carousel-indicators header-slide">
       <%= for i <- @indexes do %>
-        <li  style="background-color: red;"
+        <li 
           data-bs-target="#header-carousel" 
-          data-bs-slide-to={i}  style="margin-top: -100px"
+          data-bs-slide-to={i}
           class={if i == 0, do: "active"}>
         </li>
       <% end %>
