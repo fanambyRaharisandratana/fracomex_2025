@@ -109,35 +109,39 @@
           </div>
 
           <%= if real_stock > 0 do %>
-            <div class="d-flex align-items-center gap-3 mb-4">
-              <div class="counter d-flex align-items-center border rounded px-2">
+            <div class="d-flex align-items-center flex-wrap gap-3 mb-4">
+              <!-- Compteur -->
+              <div class="d-flex align-items-center border rounded px-2 py-1" style="min-height: 38px;">
                 <span
-                  class="btn btn-sm text-dark"
+                  class="btn btn-sm text-dark px-2"
                   phx-click="dec-button"
                   phx-value-item_id={@item.id}
                   phx-value-quantity={@quantity}
                   style={"#{if @quantity < 2, do: "opacity: 0.3; cursor: not-allowed;", else: "opacity: 1"}"}
                 >−</span>
+
                 <input
                   type="text"
                   name="quantity"
                   value={@quantity}
-                  class="form-control text-center border-0"
-                  style="width: 50px;"
+                  class="form-control text-center border-0 shadow-none"
+                  style="width: 50px; min-height: 30px;"
                   readonly
                 >
+
                 <span
-                  class="btn btn-sm text-dark"
+                  class="btn btn-sm text-dark px-2"
                   phx-click="inc-button"
                   phx-value-item_id={@item.id}
                   phx-value-quantity={@quantity}
                 >+</span>
               </div>
 
+              <!-- Bouton Ajouter au panier -->
               <button
                 type="submit"
                 class="btn btn-danger d-flex align-items-center gap-2"
-                style={"#{if @quantity < 1, do: "opacity: 0.3; cursor: not-allowed;", else: "opacity: 1"}"}
+                style={"min-height: 38px; #{if @quantity < 1, do: "opacity: 0.3; cursor: not-allowed;", else: "opacity: 1"}"}
               >
                 <i class="lnr lnr-cart"></i>
                 <span>Ajouter au panier</span>
