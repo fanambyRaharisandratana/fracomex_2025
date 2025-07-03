@@ -73,101 +73,88 @@
 			phx-click="lv:clear-flash"
 			phx-value-key="error"><%= live_flash(@flash, :error) %></p>
 	</main>
-	<div class="container">
-		<div class="section-header">
-		</div><!--/.section-header-->
-		<div class="new-arrivals-content">
-			<div class="row">
-				<div class="col-md-6 col-sm-8">
-					<div class="single-product">
-						<div class="single-product-bg">
+	<div class="container my-5">
+  <div class="row g-5 align-items-center">
+    
+    <!-- Image produit -->
+    <div class="col-md-6 text-center">
+      <div class="single-product">
+        <div class="single-product-bg position-relative">
+          <%= if not is_nil(@item) do %>
+            <img src={Routes.static_path(@socket, "/images/big-items/#{@item.image}")} alt="Image produit" class="img-fluid rounded shadow" style="max-height: 450px; object-fit: contain;">
+          <% end %>
+        </div>
+      </div>
+    </div>
 
-							<%= if not is_nil(@item) do %>
-								<img src={Routes.static_path(@socket, "/images/big-items/#{@item.image}")} alt="product_img">
-							<% end %>
+    <!-- Détails produit -->
+    <% real_stock = @item.real_stock |> Decimal.to_float() |> trunc() %>
 
-							<div hidden class="sale bg-1">
-								<p>Promotions</p>
-							</div>
-						</div>
-					</div>
-				</div>
+    <div class="col-md-6">
+      <%= if not is_nil(@item) do %>
+        <form phx-submit="add-product-to-cart">
+          <input type="hidden" name="item_id" value={@item.id}>
 
-				<% real_stock = 
-					@item.real_stock 
-					|> Decimal.to_float()
-					|> trunc() 
-				%>
+          <div class="mb-3">
+            <h2 class="fw-bold" style="word-wrap: break-word;"><%= String.capitalize(@item.caption) %></h2>
+            <p><b>Catégorie :</b> <%= if @item.family, do: @item.family.caption, else: "Aucune" %></p>
+            <p><b>Sous-catégorie :</b> <%= if @item.sub_family, do: @item.sub_family.caption, else: "Aucune" %></p>
+          </div>
 
-				<div class="col-md-6 col-sm-8">
-					<form phx-submit="add-product-to-cart">
-						<input type="hidden" name="item_id" value={@item.id}>
-						<div class="details">
-							<%= if not is_nil(@item) do %>
-								<% family_caption = if not is_nil(@item.family), do: @item.family.caption, else: "Aucune" %>
-								<% sub_family_caption = if not is_nil(@item.sub_family), do: @item.sub_family.caption, else: "Aucune" %>
-								<h2 class="details-product-name" style="word-wrap: anywhere; font-size: 26px;"><%= String.capitalize(@item.caption) %> </h2>
-								<p><b>Catégorie:</b> <%= family_caption %></p>
-								<p><b>Sous-catégorie:</b> <%= sub_family_caption %></p>
-							
-								<%= if Decimal.cmp(@item.real_stock, Decimal.new(0)) == :gt do %>
-								<p><b style="color: black;">Disponible en stock</b></p>
-								<% end %>
-								<h3 class="details-product-price"><%= Fracomex.Utilities.price_format(@item.sale_price_vat_excluded) %> €</h3>
-								<div class="row">
+          <div class="mb-3">
+            <h3 class="text-danger fw-semibold"><%= Fracomex.Utilities.price_format(@item.sale_price_vat_excluded) %> €</h3>
+            <p class={"text-#{ if real_stock > 0, do: "success", else: "danger"} fw-bold"}>
+              <%= if real_stock > 0, do: "Disponible en stock", else: "Rupture de stock" %>
+            </p>
+          </div>
 
-									<%= if real_stock > 0 do %>
-										<div class="col-md-2 col-sm-4">
-											<div class="counter">
-												<span 
-													class="down" 
-													phx-click="dec-button" 
-													phx-value-item_id={@item.id}
-													phx-value-quantity={@quantity} 
-													style={"#{if @quantity < 2, do: "opacity: 0; cursor: auto;", else: "opacity: 1"}"}>-
-												</span>
-													<input type="text" value={@quantity} name="quantity">
-												<span 
-													class="up" 
-													phx-click="inc-button" 
-													phx-value-item_id={@item.id}
-													phx-value-quantity={@quantity}>+
-												</span>
-											</div>
-										</div>
-									<% end %>
+          <%= if real_stock > 0 do %>
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="counter d-flex align-items-center border rounded px-2">
+                <span
+                  class="btn btn-sm text-dark"
+                  phx-click="dec-button"
+                  phx-value-item_id={@item.id}
+                  phx-value-quantity={@quantity}
+                  style={"#{if @quantity < 2, do: "opacity: 0.3; cursor: not-allowed;", else: "opacity: 1"}"}
+                >−</span>
+                <input
+                  type="text"
+                  name="quantity"
+                  value={@quantity}
+                  class="form-control text-center border-0"
+                  style="width: 50px;"
+                  readonly
+                >
+                <span
+                  class="btn btn-sm text-dark"
+                  phx-click="inc-button"
+                  phx-value-item_id={@item.id}
+                  phx-value-quantity={@quantity}
+                >+</span>
+              </div>
 
-								</div>
-							<% end %>
-						</div>
-						<!-- 
-							phx-click="add-product-to-cart"
-							phx-value-item_id = {@item.id}
-						-->
-					
+              <button
+                type="submit"
+                class="btn btn-danger d-flex align-items-center gap-2"
+                style={"#{if @quantity < 1, do: "opacity: 0.3; cursor: not-allowed;", else: "opacity: 1"}"}
+              >
+                <i class="lnr lnr-cart"></i>
+                <span>Ajouter au panier</span>
+              </button>
+            </div>
+          <% else %>
+            <div class="alert alert-warning d-flex align-items-center gap-2 mt-4">
+              <i class="lnr lnr-rocket fs-4"></i>
+              <p class="mb-0">Rupture de stock</p>
+            </div>
+          <% end %>
+        </form>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-						<%= if real_stock < 1 do %>
-							<div class="out-of-stock mt-5">
-								<span class="lnr lnr-rocket"></span>
-								<p>Rupture de stock</p>
-							</div>
-						<% else %>
-							<button 
-								type="submit"
-								class="button-cart product-add-cart" 
-								style={"#{if @quantity < 1, do: "opacity: 0; cursor: auto;", else: "opacity: 1"}"}
-							>	
-								<span class="lnr lnr-cart"></span>
-								<span class="single_product_addtocart">Ajouter au panier</span>
-							</button>
-						<% end %>						
-						
-					</form>
-				</div>
-				
-			</div>
-		</div>
-	</div><!--/.container-->
 
 </section><!--/.new-arrivals-->
 <!--new-arrivals end -->

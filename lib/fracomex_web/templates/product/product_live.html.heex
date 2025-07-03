@@ -114,6 +114,7 @@
 					</div>   
 				</div> 
 			
+			<div class="row">
 				<%= for item <- @items do %>
 
 					<% family_caption = 
@@ -140,60 +141,53 @@
 						|> trunc() 
 					%>
 
-					<div class="product-grid">	
-						<div class="col-md-3 col-sm-4 content-product">
-							<div class="details-product" id={"details-#{item.id}"}>
-								<a data-phx-link="redirect" data-phx-link-state="push" href={Routes.product_path(@socket, :product_details, family_caption, sub_family_caption, "#{item.caption}", "#{item.id}")}>
-									<div class="single-product-bg shadow" id={"product-#{item.id}"} data-product-id={item.id}>
-										<img src={Routes.static_path(@socket, "/images/big-items/#{item.image}")} alt={item.caption}>
-										<div class="single-product-bg-overlay"></div>
-										<div hidden class="sale bg-1">
-											<p hidden>news</p>
-											<p>Arrivage</p>
-										</div>
+					<div class="col-6 col-sm-4 col-md-3 mb-4 d-flex">
+						<div class="card shadow-sm border-0 w-100 d-flex flex-column h-100 product-card" id={"product-#{item.id}"}>
+							
+							<!-- Image avec overlay -->
+							<div class="position-relative overflow-hidden" style="height: 200px;">
+								<a data-phx-link="redirect" data-phx-link-state="push"
+									href={Routes.product_path(@socket, :product_details, family_caption, sub_family_caption, item.caption, item.id)}>
+									<img src={Routes.static_path(@socket, "/images/big-items/#{item.image}")}
+										alt={item.caption}
+										class="card-img-top h-100 transition">
+									<div class="position-absolute top-0 start-0 w-100 h-100 transition"></div>
+								</a>
+								</div>
 
-										<!--product_title-->
-										<div class="product-name" id={"name-#{item.id}"}>	
-											<a class="a-product-name" href="#"><%= String.capitalize(item.caption) %></a>
-										</div>
+								<!-- Corps de la carte -->
+								<div class="card-body d-flex flex-column justify-content-between">
+								<div class="text-center">
+									<h6 class="card-title mb-1 text-truncate"><%= String.capitalize(item.caption) %></h6>
+									<p class="text-muted mb-2">
+									<%= Fracomex.Utilities.price_format(item.sale_price_vat_excluded) %> €
+									</p>
+								</div>
 
-										<!--product_price-->
-										<div class="product-price" id={"price-#{item.id}"}>
-											<p class="p-product-price"><%= Fracomex.Utilities.price_format(item.sale_price_vat_excluded) %> €</p>
-										</div>
-
-										<%= if real_stock > 0 do %>
-											<div 
-												class="new-arrival-cart" 
-												phx-click="add-one-product-to-cart"
-												phx-value-id={item.id}
-											>
-												<p class="add-to-cart">
-													<span class="lnr lnr-cart"></span>
-													<span class="addtocart">Ajouter au panier</span>
-												</p>
-												<!--p class="arrival-review pull-right">
-													<span class="lnr lnr-heart"></span>
-													<span class="lnr lnr-frame-expand" title="Zoom"></span>
-												</p-->
-											</div>
-										<% else %>
-											<div class="out-of-stock-ribbon" style="display: none;">
-												<p style="font-size: 1rem;"></p>
-											</div>
-										<% end %>
-
-										
-									</div>
-								</a>	
+								<!-- Bouton ajouter au panier -->
+								<div class="text-center mt-auto">
+									<%= if real_stock > 0 do %>
+									<button
+										class="btn btn-sm btn-outline-dark w-100"
+										phx-click="add-one-product-to-cart"
+										phx-value-id={item.id}>
+										<i class="lnr lnr-cart me-1"></i> Ajouter au panier
+									</button>
+									<% else %>
+									<div class="badge bg-danger-subtle text-danger w-100 py-2">Rupture de stock</div>
+									<% end %>
+								</div>
 							</div>
-						</div>	
-					</div>		
+
+						</div>
+					</div>
+		
 				<% end %>
+			</div>
 			</div>
 
 			<!-- Pagination -->
-			<nav aria-label="pagination" class="text-center">
+			<nav aria-label="pagination" class="d-flex justify-content-center my-4">
 				<ul class="pagination">
 					<%= if @items.page_number > 1 do %>
 						<li class="page-item">

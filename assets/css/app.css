@@ -1,14 +1,17 @@
 /* This file is for your main application CSS */
 @import "./phoenix.css";
-@import "./bootstrap.min.css";
+/* @import "./bootstrap.min.css"; */
 @import "./animate.css";
-@import "./bootsnav.css";
+/* @import "./bootsnav.css"; */
 @import "./owl.carousel.min.css";
 @import "./style.css";
 @import "./custom_styles.css";
 @import "./responsive.css";
 @import "./button.css";
 @import "./pagination.css";
+@import "./header.css";
+@import "./sidebar.css";
+/* @import "./carousel.css"; */
 /* Alerts and form errors used by phx.new */
 .alert {
   position: fixed;

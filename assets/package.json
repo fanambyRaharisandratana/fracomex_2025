@@ -9,12 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.3.7",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "sass": "^1.89.2"
   },
   "devDependencies": {
     "file-loader": "^6.2.0",
-    "node-sass": "^7.0.1",
     "sass-loader": "^7.3.1"
   }
 }

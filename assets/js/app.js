@@ -7,6 +7,10 @@ import "../js/jQuery-2.1.4.min.js"
 import "../js/owl.carousel.min.js"
 import "../js/custom.js"
 import "../js/search.js"
+import "../js/main.js"
+import "../js/sidebar.js"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 
 //import "../js/modern.min.js"
 //import "../js/jqueryeasing.min.js"

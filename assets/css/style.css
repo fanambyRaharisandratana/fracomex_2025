@@ -14,10 +14,10 @@
 /*-------------------------------------
 		1.General css
 --------------------------------------*/
-@font-face {
+/* @font-face {
     font-family: "BodyFont";
     src: url(/home/mgbi/elixir/fracomex/static_assets/fonts/SctoGroteskA-Regular.woff2) format('woff2');
-}
+} */
 
 * {
     padding: 0;
@@ -57,16 +57,14 @@ body {
 }
 
 a,
-a:hover,
+/* a:hover,
 a:active,
 a:focus {
     display: inline-block;
     text-decoration: none;
     color: #616060;
-    /* font-size: 16px;*/ /*Stop the  bold title on hover */
     padding: 0;
-    /*font-weight: 500;*/ /* Stop the  bold title on hover */
-}
+} */
 
 h1,
 h2,
@@ -80,7 +78,7 @@ h6 {
 
 p {
     margin: 0;
-    color: #a09e9c;
+    /* color: #a09e9c; */
     font-size: 16px;
     line-height: 1.8;
 }
@@ -1992,8 +1990,6 @@ ul.category {
     top: 1rem;
     position: relative;
 }
-
-.full.lnr.lnr-store::before {}
 
 .full.lnr.lnr-store::after {
     content: "\e870";
