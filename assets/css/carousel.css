@@ -60,6 +60,14 @@ button:not(.collapsed) .rotate-icon {
   transform: rotate(180deg);
 }
 
+@media (max-width: 576px) {
+  #prefooter h5 {
+    font-size: 1.1rem;
+  }
+  #prefooter p, #prefooter li {
+    font-size: 0.9rem;
+  }
+}
 
 
 /* .carousel-control-prev,

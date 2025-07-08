@@ -1,6 +1,6 @@
-<div class="container py-5">
-  <div class="row justify-content-center" style="margin-top: 5%;">
-    <div class="col-md-6">
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="row justify-content-center w-100">
+    <div class="col-lg-5 col-md-7 col-11">
       <div class="card shadow-sm border-0">
         <div class="card-body p-4">
           <h2 class="text-center mb-4">Connexion</h2>
@@ -20,7 +20,7 @@
             <!-- Adresse e-mail -->
             <div class="mb-3">
               <label for="mail_address" class="form-label">Adresse e-mail</label>
-              <% 
+              <%
                 {email_error, email_validity} = cond do
                   not is_nil(@changeset.action) and @changeset.errors[:mail_address] ->
                     {error, _} = @changeset.errors[:mail_address]
