@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "#{Fracomex.Utilities.get_page_title_tag(@conn.request_path, Plug.Conn.get_session(@conn, :user_id))}", suffix: " · Fracomex Mayotte" %>
+	<link rel="shortcut icon" type="image/icon" href={Routes.static_path(@conn, "/images/favicon.png")}/>
+    <!-- CSS Link -->
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"/>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/linearicons@1.0.2/dist/web-font/style.min.css"/>
+
+    <!-- JS Link -->
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+	<!-- jQuery (si Bootstrap v4 ou avant) -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<!-- Popper.js (pour les positionnements des dropdowns) -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+
+  <body>
+	<header id="home" class="slide-hero text-white fixed-top" style="max-height: 100px;">
+		<!-- LIGNE 1 : Logo et barre de recherche -->
+		<div class="d-none d-md-flex align-items-center justify-content-between flex-wrap" style="font-size: 15px; background-color: #630b05;">
+
+			<!-- Logo à gauche -->
+			<a class="fs-4 fw-bold" href={Routes.page_path(@conn, :index)}>
+				<img src={Routes.static_path(@conn, "/images/fracomex.png")} alt="Logo" style="height: 35px;margin-left: 10%;" />
+			</a>
+
+			<!-- Infos et liens à droite -->
+			<div class="d-flex flex-wrap align-items-center gap-3 text-white small justify-content-end text-end" style="margin-right: 5%;">
+
+				<!-- Coordonnées -->
+				<div><a class="nav-link text-white" href="https://www.facebook.com/fracomex/" target="_blank"><i class="fab fa-facebook fa-lg"></i></a></div>
+				<div><a class="nav-link text-white" href="https://www.instagram.com/fracomex/?hl=fr" target="_blank"><i class="fab fa-instagram fa-lg"></i></a></div>
+				<div><i class="fa fa-phone me-1"></i> 0269 61 25 38</div>
+				<div><i class="fa-solid fa-location-dot me-1"></i> ZI KAWENI</div>
+				<div><i class="bi bi-envelope me-1"></i> devis.fracomex@gmail.com</div>
+			</div>
+		</div>
+
+		<!-- LIGNE 2 : Navigation principale -->
+		<nav class="navbar navbar-expand-md px-3 py-2" style="background-color: #e41201;">
+			<div class="container-fluid d-flex justify-content-between align-items-center flex-wrap">
+
+				<!-- Colonne centre : Menu de navigation -->
+				<div class="collapse navbar-collapse justify-content-start">
+				<ul class="navbar-nav d-flex align-items-start gap-2" style="font-size: 0.9rem;">
+					<li class="nav-item">
+						<div id="mainNavbar" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+							<a class="nav-link text-white all d-flex align-items-center py-1 px-2" id="sidebarCollapse" href="#">
+							<span class="lnr lnr-menu me-1"></span>
+							<span class="d-none d-md-inline">Tous les produits</span></a>
+						</div>
+					</li>
+					<li class="nav-item d-none d-md-block">
+					<a class="nav-link text-white py-1 px-2" href={Routes.product_path(@conn, :index)}>Boutique</a>
+					</li>
+					<li class="nav-item d-none d-md-block">
+					<a class="nav-link text-white py-1 px-2" href="/contact">Contact</a>
+					</li>
+				</ul>
+				</div>
+
+				<!-- Colonne droite : Recherche, compte, panier -->
+				<div class="d-flex align-items-center gap-3 flex-wrap">
+
+					<!-- 🔍 Recherche -->
+					<div class="d-flex align-items-center">
+						<ul class="navbar-nav d-flex flex-row justify-content-between align-items-center w-100 d-md-none px-2 gap-2">
+							<li class="nav-item">
+								<a class="fs-4 fw-bold" href={Routes.page_path(@conn, :index)}>
+								<img src={Routes.static_path(@conn, "/images/fracomex.png")} alt="Logo" style="height: 30px;" />
+								</a>
+							</li>
+							<li class="nav-item">
+								<a id="toggle-sidebar" class="nav-link text-white all d-flex align-items-center py-1 px-2" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle sidebar" href="#">
+									<span class="lnr lnr-menu me-1" style="font-size: 16px;"></span>
+									<span class="d-none d-md-inline">Tous les produits</span>
+								</a>
+							</li>
+						</ul>
+						<button class="btn btn-sm text-white" id="toggle-search" type="button">
+						<i class="fas fa-search" id="search-icon"></i>
+						</button>
+						<form action={:search} method="post" phx-submit="search-item" class="d-flex align-items-center ms-2 visually-hidden" id="search-nav">
+						<input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()}>
+						<input type="search" name="q" placeholder="Recherche produits" class="form-control form-control-sm me-2" style="min-width: 250px;" />
+						<button type="submit" class="btn btn-sm text-white">
+							<i class="fas fa-search"></i>
+						</button>
+						</form>
+					</div>
+
+					<!-- Compte utilisateur -->
+					<a class="nav-link text-white" href={Routes.users_path(@conn, :signin)}>
+						<i class="fa fa-solid fa-user fa-lg"></i>
+					</a>
+
+					<!-- Panier -->
+					<div class="nav-item dropdown position-relative">
+						<a class="nav-link dropdown-toggle text-white" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fas fa-shopping-cart fa"></i>
+						<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark" style="font-size: 0.7rem;">
+							<%= if not is_nil(@cart), do: Enum.count(@cart), else: 0 %>
+						</span>
+						</a>
+
+						<ul class="dropdown-menu dropdown-menu-end cart-list s-cate" aria-labelledby="cartDropdown" style="min-width: 300px;">
+						<%= if not is_nil(@cart) and @cart != [] do %>
+							<%= for i <- 0..Enum.count(@cart) - 1 do %>
+							<li class="single-cart-list d-flex align-items-start p-2">
+								<a href="#" class="me-2">
+								<img src={"/images/big-items/#{Fracomex.Utilities.product_in_cart(@cart, i).image}"} class="cart-thumb" alt="image" style="width: 50px;" />
+								</a>
+								<div class="cart-list-txt">
+								<h6 class="mb-1" style="font-size: 0.9rem;">
+									<a href={Routes.cart_path(@conn, :index)} class="text-dark text-decoration-none">
+									<%= Fracomex.Utilities.product_in_cart(@cart, i).caption %>
+									</a>
+								</h6>
+								<p class="mb-0" style="font-size: 0.85rem;">
+									<%= Enum.at(@cart, i).quantity %> x - 
+									<span class="price"><%= Fracomex.Utilities.price_format(Fracomex.Utilities.product_in_cart(@cart, i).sale_price_vat_excluded) %> €</span>
+								</p>
+								</div>
+							</li>
+							<% end %>
+
+							<li class="dropdown-divider my-2"></li>
+
+							<li class="px-3 pb-2">
+							<h6>Total : <%= Fracomex.Utilities.price_format_from_float(@sum_cart) %> €</h6>
+							<%= form_for nil, "/valider-commande", fn f -> %>
+								<input type="hidden" name="order_id" value={Plug.Conn.get_session(@conn, :current_order)}>
+								<button class="btn btn-sm btn-success w-100 mt-1" type="submit">Valider le panier</button>
+							<% end %>
+							<a href={Routes.cart_path(@conn, :index)} class="btn btn-primary btn-sm w-100 mt-2">Voir le panier</a>
+							</li>
+						<% else %>
+							<li class="text-center p-3">Votre panier est vide.</li>
+						<% end %>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+
+		<div id="sidebar" class="active collapse" style="max-height: 100vh;overflow-y: auto;">
+			<div class="img bg-wrap text-center py-4">
+				<div class="user-logo">
+				<h3>Catégorie des produits</h3>
+				</div>
+			</div>
+
+			<ul class="list-unstyled components mb-5" id="sidebar-accordion">
+				<%= for family <- Fracomex.Products.list_families_with_subs() do %>
+				<li class="position-relative">
+					<%= if length(family.sub_families) > 0 do %>
+					<!-- Famille avec sous-catégories -->
+					<div class="d-flex justify-content-between align-items-center w-100">
+						<a href={Routes.product_path(@conn, :family, family.caption)} class="text-decoration-none">
+							<%= family.caption %>
+						</a>
+							<span class="lnr lnr-chevron-down"data-bs-toggle="collapse"
+							data-bs-target={"#collapse-family-#{family.id}"}
+							aria-expanded="false"
+							aria-controls={"collapse-family-#{family.id}"}
+							style="line-height: 1;margin-right: 50px;"></span>
+					</div>
+
+					<div id={"collapse-family-#{family.id}"} 
+						class="collapse ps-2"
+						data-bs-parent="#sidebar-accordion">
+						<ul class="ul-drop-menu" style="overflow-y: auto; max-height: 650px;">
+						<%= for sub_family <- family.sub_families do %>
+							<li class="li-drop-menu">
+							<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)}>
+								<%= String.capitalize(sub_family.caption) %>
+							</a>
+							</li>
+						<% end %>
+						</ul>
+					</div>
+					<% else %>
+					<!-- Famille sans sous-catégorie -->
+					<a href={Routes.product_path(@conn, :family, family.caption)} class="d-block text-dark">
+						<%= family.caption %>
+					</a>
+					<% end %>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+	</header>
+
+	<%= @inner_content %>
+
+	<!-- Prefooter -->
+<section id="prefooter" class="bg-black text-white">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 gy-4">
+      <!-- Informations -->
+      <div class="col">
+        <h5 class="text-danger fw-bold">Informations</h5>
+        <p>
+          Entreprise d'électricité générale et professionnelle : luminaires, plomberie, sanitaire, peinture, serrurerie, quincaillerie.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div class="col">
+        <h5 class="text-danger fw-bold">Navigation</h5>
+        <ul class="list-unstyled">
+          <li><a class="text-white" style="cursor:pointer;" onclick="document.querySelector('.all').click()">Nos produits</a></li>
+          <li><a href={Routes.product_path(@conn, :index)} class="text-white">Boutique</a></li>
+          <li><a href="/contact" class="text-white">Contactez-nous</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col">
+        <h5 class="text-danger fw-bold">Contact</h5>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt me-2 text-danger"></i>BP 512 Avenue de l'Europe ZI Kawéni - Mamoudzou</li>
+          <li><i class="fas fa-phone me-2 text-danger"></i>0269 61 25 38</li>
+          <li><i class="fas fa-envelope me-2 text-danger"></i>devis.fracomex@gmail.com</li>
+          <!-- Réseaux sociaux -->
+          <li class="d-flex gap-3 mt-2">
+            <a href="https://www.facebook.com/fracomex/" target="_blank" class="text-primary"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="https://www.instagram.com/fracomex/?hl=fr" target="_blank" class="text-danger"><i class="fab fa-instagram fa-2x"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Prefooter End -->
+
+<!-- Cookie Alert -->
+<div class="card cookie-alert shadow-sm position-fixed bottom-0 end-0 m-3" style="z-index: 1050; max-width: 100%;">
+  <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+    <p class="mb-0 text-center text-md-start">
+      Nous utilisons des cookies pour améliorer votre expérience sur notre site web. En continuant, vous acceptez notre politique.
+    </p>
+    <div class="d-flex flex-column flex-md-row gap-2">
+      <button class="btn btn-outline-secondary refuse-cookie">Refuser</button>
+      <a href="#" class="btn btn-primary accept-cookies">Accepter</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Footer
+<footer class="footer bg-dark text-white text-center py-3 position-relative">
+	<div class="container">
+		<p class="mb-0">
+		&copy; 2024 | Réalisé par <a href="http://www.phidia.fr" class="text-white fw-bold">Phidia</a>
+		</p>
+	</div>
+
+	
+	<a href="#" class="position-absolute top-0 end-0 m-3 text-white" title="Haut de page">
+		<i class="fa fa-angle-up fa-2x"></i>
+	</a>
+</footer> -->
+	</body>
+  
+<script>  
+const desktopQuery = window.matchMedia("(min-width: 768px)");
+const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+if (desktopQuery.matches) {
+  // Écrans d’ordi
+  document.addEventListener('click', function (event) {
+    const sidebar = document.getElementById('sidebar');
+    // Si le sidebar n’est pas visible, rien à faire
+	if (!sidebar.classList.contains('show')) return;
+
+	// Si on clique à l’intérieur du sidebar, ne rien faire
+	if (sidebar.contains(event.target)) return;
+
+	// Si on clique à l’extérieur, on ajoute simplement 'active'
+	sidebar.classList.add('active');
+  });
+}
+
+if (mobileQuery.matches) {
+  // Mobiles
+  document.addEventListener('click', function (event) {
+    const sidebar = document.getElementById('sidebar');
+    // Si le sidebar n’est pas visible, rien à faire
+	if (!sidebar.classList.contains('show')) return;
+
+	// Si on clique à l’intérieur du sidebar, ne rien faire
+	if (sidebar.contains(event.target)) return;
+
+	// Si on clique à l’extérieur, on ajoute simplement 'active'
+	sidebar.classList.remove('show');
+  });
+  const sidebar = document.getElementById('sidebar');
+  const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+
+  toggleSidebarBtn.addEventListener('click', function (e) {
+		e.preventDefault(); // évite de remonter en haut avec le href="#"
+		sidebar.classList.remove('show');
+	});
+}
+
+// search form
+ document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-search");
+    const searchForm = document.getElementById("search-nav");
+    const icon = document.getElementById("search-icon");
+
+    toggleBtn.addEventListener("click", function () {
+      const isHidden = searchForm.classList.contains("visually-hidden");
+
+      // Toggle visibility
+      searchForm.classList.toggle("visually-hidden");
+
+      // Toggle icon
+      if (isHidden) {
+        icon.classList.remove("fa-search");
+        icon.classList.add("fa-times");
+        searchForm.querySelector('input[name="q"]').focus();
+      } else {
+        icon.classList.remove("fa-times");
+        icon.classList.add("fa-search");
+      }
+    });
+  });
+
+//category side panel
+	
+</script>
+<script> 
+//password   
+var togglePassword = document.querySelector("#togglePassword");
+var password = document.querySelector("#password");
+$("#togglePassword").click(function(){
+// toggle the type attribute
+  var type = password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+// toggle the eye icon
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+});
+
+var toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+var confirm_password = document.querySelector("#confirm_password");
+$("#toggleConfirmPassword").click(function(){
+// toggle the type attribute
+  var type = confirm_password.getAttribute("type") === "password" ? "text" : "password";
+  confirm_password.setAttribute("type", type);
+// toggle the eye icon
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+});
+
+var toggleCurrentPassword = document.querySelector("#toggleCurrentPassword");
+var current_password = document.querySelector("#current_password");
+$("#toggleCurrentPassword").click(function(){
+// toggle the type attribute
+  var type = current_password.getAttribute("type") === "password" ? "text" : "password";
+  current_password.setAttribute("type", type);
+// toggle the eye icon
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+});
+</script>
+
+
+<script>
+/* all alert */
+$(function() {
+setTimeout(function(){ 
+	$(".all-alert").hide().fadeOut(5000); }
+	, 5000)
+})		
+</script>	
+
+</html>
