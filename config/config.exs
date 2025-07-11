@@ -23,7 +23,7 @@ config :fracomex,
 
 # Configures the endpoint
 config :fracomex, FracomexWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "fracomex.yt"],
   render_errors: [view: FracomexWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Fracomex.PubSub,
   live_view: [signing_salt: "vQgynYPm"]
@@ -42,9 +42,9 @@ config :swoosh, :api_client, false
 
 config :fracomex, Fracomex.Mailer,
   adapter: Swoosh.Adapters.SMTP,
-  relay: "ssl0.ovh.net",
+  relay: "mail.alita.re",
   username: "fracomex@mgbi.mg",
-  password: "Mgbi@261!",
+  password: "Mgbi@261",
   port: 587,
   retries: 1
 

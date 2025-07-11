@@ -19,7 +19,7 @@ defmodule Fracomex.UserEmail do
     |> from(mail_sender)
     |> to(direction_mail_address)
     |> bcc(mail_ccs)
-    |> subject("[fracomex.yt] Nouveau message")
+    |> subject("Nouveau message")
     |> html_body(html_text)
     |> Mailer.deliver()
   end
@@ -43,7 +43,7 @@ defmodule Fracomex.UserEmail do
       new()
       |> from("fracomex@mgbi.mg")
       |> to(mail_address)
-      |> subject("[FRACOMEX.FYT] Confirmation de votre inscription")
+      |> subject("Confirmation de votre inscription")
       |> html_body(html_text)
       |> Mailer.deliver()
   end
@@ -56,7 +56,7 @@ defmodule Fracomex.UserEmail do
       new()
       |> from("fracomex@mgbi.mg")
       |> to(mail_address)
-      |> subject("[FRACOMEX.YT] Mot de passe oublié")
+      |> subject("Mot de passe oublié")
       |> html_body(html_text)
       |> Mailer.deliver()
   end

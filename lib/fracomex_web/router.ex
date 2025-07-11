@@ -25,10 +25,7 @@ defmodule FracomexWeb.Router do
 
   scope "/", FracomexWeb do
     pipe_through :stick
-    get "/connexion", UsersController, :signin
-    get "/inscription", UsersController, :signup
-    get "/deconnexion", UsersController, :signout
-    live "/boutique/:categorie/:sous_categorie/:nom_produit/:id_produit", Live.ProductLive, :product_details
+    # live "/boutique/:categorie/:sous_categorie/:nom_produit/:id_produit", Live.ProductLive, :product_details
   end
 
   scope "/", FracomexWeb do
@@ -51,7 +48,7 @@ defmodule FracomexWeb.Router do
     live "/boutique", Live.ProductLive, :index
 
     # get "/product-details", SingleProductController, :index
-    # live "/boutique/:categorie/:sous_categorie/:nom_produit/:id_produit", Live.ProductLive, :product_details
+    live "/boutique/:categorie/:sous_categorie/:nom_produit/:id_produit", Live.ProductLive, :product_details
 
     live "/boutique/vide", Live.ProductLive, :empty_items
 
