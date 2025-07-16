@@ -21,7 +21,7 @@
 			<!--col category start -->					
 			<div class="all-category col-md-3 col-sm-4 p-4">	
 				<div class="section-header mb-4">
-					<h3 class="title"> <span class="lnr lnr-cart"></span> Catégories de produits</h3>
+					<h3 class="title"> <span class="lnr lnr-cart"></span> Catégories de prooduits</h3>
 				</div>
 				
 				<!--/.section-header-->			
@@ -31,18 +31,25 @@
 							<%= cond do  %>
 								<% length(family.sub_families) > 0 -> %>
 									<!--/has sub-category-->	
-									<li class="has-child collapsed" id={"li-category#{family.id}"}  data-toggle="collapse" data-target={"#sub-collapse#{family.id}"} aria-expanded="true" aria-controls="collapseOne">
-										<a class="child mb-0" style="color: #000000c4; cursor: pointer;" phx-click="show-sub-family" phx-value-id={family.id}>
-											<%= String.capitalize(family.caption) %>
+									<li class="has-child collapsed" id={"li-category#{family.id}"} >
+										<a class="toggle-family"
+												data-family-id={family.id}
+												style="color: #000000c4; cursor: pointer;">
+										<%= String.capitalize(family.caption) %>
 										</a>
 									</li>	
 										
-									<div id={"sub-collapse#{family.id}"} class="collapse category-collapse" data-parent="#collapse-category">
-										<ul class="sub-category">
+									<!-- Sous-catégories -->
+									<div id={"sub-collapse#{family.id}"}
+											class="category-collapse"
+											style={"display: none"}>
+										<ul class="sub-category ps-3">
 											<%= for sub_family <- family.sub_families do %>
-												<li>
-													<a style="color: #000000c4;" href={Routes.product_path(@socket, :sub_family, family.caption, sub_family.caption)}><%= String.capitalize(sub_family.caption) %></a>
-												</li>
+											<li>
+												<a href={Routes.product_path(@socket, :sub_family, family.caption, sub_family.caption)}>
+												<%= String.capitalize(sub_family.caption) %>
+												</a>
+											</li>
 											<% end %>
 										</ul>
 									</div>
@@ -113,6 +120,48 @@
 						</div>
 					</div>   
 				</div> 
+
+				
+						
+			<!-- script de toogle -->
+			<script>
+			document.addEventListener("DOMContentLoaded", function () {
+			const buttons = document.querySelectorAll(".toggle-family");
+
+			buttons.forEach((btn) => {
+			btn.addEventListener("click", function (e) {
+				e.preventDefault();
+
+				const familyId = btn.dataset.familyId;
+				const target = document.getElementById("sub-collapse" + familyId);
+				if (!target) return;
+
+				const wasVisible = getComputedStyle(target).display === "block";
+
+				// Fermer tous les blocs et réinitialiser les flèches
+				document.querySelectorAll(".category-collapse").forEach(el => {
+				el.style.display = "none";
+				});
+
+				document.querySelectorAll(".toggle-icon").forEach(icon => {
+				icon.classList.remove("rotated");
+				});
+
+				// Ouvrir celui qu'on clique (s'il n'était pas déjà visible)
+				if (!wasVisible) {
+				target.style.display = "block";
+
+				// Ajouter la classe "rotated" à l'icône flèche
+				const icon = btn.querySelector(".toggle-icon");
+				if (icon) {
+					icon.classList.add("rotated");
+				}
+				}
+			});
+			});
+		});
+			</script>
+			<!-- end script -->
 			
 			<div class="row">
 				<%= for item <- @items do %>
