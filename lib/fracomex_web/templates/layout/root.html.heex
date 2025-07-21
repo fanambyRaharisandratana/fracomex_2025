@@ -164,7 +164,7 @@
 		</nav>
 
 
-		<div id="sidebar" class="active collapse" style="max-height: 100vh;overflow-y: auto;">
+		<div id="sidebar" class="active collapse" >
 			<div class="img bg-wrap text-center py-4">
 				<div class="user-logo">
 				<h3>Catégorie des produits</h3>
@@ -174,55 +174,62 @@
 			<ul class="list-unstyled components mb-5" id="sidebar-accordion">
 
 				<%= for family <- Fracomex.Products.list_families_with_subs() do %>
-				<li class="position-relative">
-					<%= if length(family.sub_families) > 0 do %>
-					<!-- Famille avec sous-catégories -->
-					<div class="d-flex justify-content-between align-items-center w-100">
-						<a href={Routes.product_path(@conn, :family, family.caption)} class="text-decoration-none">
+					<li class="position-relative">
+						<%= if length(family.sub_families) > 0 do %>
+						<!-- Famille avec sous-catégories -->
+						
+						<div class="d-flex justify-content-between align-items-center w-75">
+							<!-- Lien vers la famille -->
+							<a href={Routes.product_path(@conn, :family, family.caption)}
+								class="text-decoration-none text-start">
+								<%= family.caption %>
+							</a>
+
+							<!-- Icône indépendante pour toggle -->
+							<span class="toggle2-family toggle2-icon"
+									data-family-id={family.id}
+									style="cursor: pointer;">
+								<i class="fas fa-chevron-right"></i>
+							</span>
+						</div>
+
+						<!-- Sous-catégories à afficher/masquer -->
+						<div id={"sub2-collapse#{family.id}"}
+							class="category2-collapse ms-3 mt-2"
+							style="display: none;">
+							<ul class="list-unstyled">
+							<%= for sub_family <- family.sub_families do %>
+								<li>
+								<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)} class="text-decoration-none d-block py-2">
+									<%= String.capitalize(sub_family.caption) %>
+								</a>
+								</li>
+							<% end %>
+							</ul>
+						</div>
+
+						<% else %>
+						<!-- Famille sans sous-catégorie -->
+						<a href={Routes.product_path(@conn, :family, family.caption)} class="d-block text-dark py-1">
 							<%= family.caption %>
 						</a>
-
-						<style>
-							.custom-select-icon {
-								width: 20px;
-								padding-right: 2rem;
-								background-color: #32373d;
-								color: rgba(255, 255, 255, 0.6);
-								border-color: rgba(255, 255, 255, 0.3);
-								background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 50 L 70 100 L 120 50' stroke='%23ffffff' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-								background-repeat: no-repeat;
-								background-position: right 0.5rem center;
-								background-size: 1rem;
-								appearance: none;
-								-webkit-appearance: none;
-								-moz-appearance: none;
-								margin-right: 70px;
-								border-color: #32373d;
-							}
-
-						</style>
-							
-						<select class="form-select custom-select-icon" onchange="if (this.value) window.location.href = this.value;">
-							<%= for sub_family <- family.sub_families do %>
-								<option value={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)}>
-								<%= String.capitalize(sub_family.caption) %>
-								</option>
-							<% end %>
-						</select>
-					</div>
-
-					<% else %>
-					<!-- Famille sans sous-catégorie -->
-					<a href={Routes.product_path(@conn, :family, family.caption)} class="d-block text-dark">
-						<%= family.caption %>
-					</a>
-					<% end %>
-				</li>
+						<% end %>
+					</li>
 				<% end %>
 
 			</ul>
 		</div>
 	</header>
+	
+	<style>
+		.toggle2-icon i {
+			transition: transform 0.3s ease;
+		}
+
+		.toggle2-icon.rotated i {
+			transform: rotate(90deg);
+		}
+	</style>
 
 	<%= @inner_content %>
 
@@ -296,6 +303,54 @@
 	</body>
   
 <script>  
+document.addEventListener("DOMContentLoaded", function () {
+	const buttons = document.querySelectorAll(".toggle2-family");
+
+	buttons.forEach((btn) => {
+	btn.addEventListener("click", function (e) {
+		e.preventDefault();
+
+		const familyId = btn.dataset.familyId;
+		const target = document.getElementById("sub2-collapse" + familyId);
+		if (!target) return;
+
+		const wasVisible = getComputedStyle(target).display === "block";
+
+		// Fermer tous les blocs et réinitialiser les flèches
+		document.querySelectorAll(".category2-collapse").forEach(el => {
+		el.style.display = "none";
+		});
+
+		document.querySelectorAll(".toggle2-icon").forEach(icon => {
+		icon.classList.remove("rotated");
+		});
+
+		// Ouvrir celui qu'on clique (s'il n'était pas déjà visible)
+		if (!wasVisible) {
+		target.style.display = "block";
+
+		// Ajouter la classe "rotated" à l'icône flèche
+		const icon = btn.querySelector(".toggle2-icon");
+		if (icon) {
+			icon.classList.add("rotated");
+		}
+		}
+	});
+	});
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggles = document.querySelectorAll(".toggle2-icon");
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      toggles.forEach(el => el.classList.remove("rotated")); // Enlève partout
+      toggle.classList.add("rotated"); // Ajoute sur celui cliqué
+    });
+  });
+});
+
+
 const desktopQuery = window.matchMedia("(min-width: 768px)");
 const mobileQuery = window.matchMedia("(max-width: 767px)");
 
