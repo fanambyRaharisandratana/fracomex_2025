@@ -200,7 +200,7 @@
 							<ul class="list-unstyled">
 							<%= for sub_family <- family.sub_families do %>
 								<li>
-								<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)} class="text-decoration-none d-block py-2">
+								<a href={Routes.product_path(@conn, :sub_family, family.caption, sub_family.caption)} class="link-hover-white text-primary text-decoration-none d-block py-2">
 									<%= String.capitalize(sub_family.caption) %>
 								</a>
 								</li>
