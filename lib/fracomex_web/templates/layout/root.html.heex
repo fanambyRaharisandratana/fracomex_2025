@@ -62,21 +62,21 @@
 
 				<!-- Colonne centre : Menu de navigation -->
 				<div class="collapse navbar-collapse justify-content-start">
-				<ul class="navbar-nav d-flex align-items-start gap-2" style="font-size: 0.9rem;">
-					<li class="nav-item">
-						<div id="mainNavbar" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
-							<a class="nav-link text-white all d-flex align-items-center py-1 px-2" id="sidebarCollapse" href="#">
-							<span class="lnr lnr-menu me-1"></span>
-							<span class="d-none d-md-inline">Tous les produits</span></a>
-						</div>
-					</li>
-					<li class="nav-item d-none d-md-block">
-					<a class="nav-link text-white py-1 px-2" href={Routes.product_path(@conn, :index)}>Boutique</a>
-					</li>
-					<li class="nav-item d-none d-md-block">
-					<a class="nav-link text-white py-1 px-2" href="/contact">Contact</a>
-					</li>
-				</ul>
+					<ul class="navbar-nav d-flex align-items-start gap-2" style="font-size: 0.9rem;">
+						<li class="nav-item">
+							<div id="mainNavbar" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="sidebar">
+								<a class="nav-link text-white all d-flex align-items-center py-1 px-2" id="sidebarCollapse" href="#">
+								<span class="lnr lnr-menu me-1"></span>
+								<span class="d-none d-md-inline">Tous les produits</span></a>
+							</div>
+						</li>
+						<li class="nav-item d-none d-md-block">
+							<a class="nav-link text-white py-1 px-2" href={Routes.product_path(@conn, :index)}>Boutique</a>
+						</li>
+						<li class="nav-item d-none d-md-block">
+							<a class="nav-link text-white py-1 px-2" href="/contact">Contact</a>
+						</li>
+					</ul>
 				</div>
 
 				<!-- Colonne droite : Recherche, compte, panier -->
@@ -123,7 +123,7 @@
 						</span>
 						</a>
 
-						<ul class="dropdown-menu dropdown-menu-end cart-list s-cate" aria-labelledby="cartDropdown" style="min-width: 300px;">
+						<ul class="dropdown-menu dropdown-menu-end cart-list s-cate ms-n5" aria-labelledby="cartDropdown" style="min-width: 300px; transform: translateX(-280px);">
 						<%= if not is_nil(@cart) and @cart != [] do %>
 							<%= for i <- 0..Enum.count(@cart) - 1 do %>
 							<li class="single-cart-list d-flex align-items-start p-2">
@@ -147,12 +147,12 @@
 							<li class="dropdown-divider my-2"></li>
 
 							<li class="px-3 pb-2">
-							<h6>Total : <%= Fracomex.Utilities.price_format_from_float(@sum_cart) %> €</h6>
-							<%= form_for nil, "/valider-commande", fn f -> %>
-								<input type="hidden" name="order_id" value={Plug.Conn.get_session(@conn, :current_order)}>
-								<button class="btn btn-sm btn-success w-100 mt-1" type="submit">Valider le panier</button>
-							<% end %>
-							<a href={Routes.cart_path(@conn, :index)} class="btn btn-primary btn-sm w-100 mt-2">Voir le panier</a>
+								<h6>Total : <%= Fracomex.Utilities.price_format_from_float(@sum_cart) %> €</h6>
+								<%= form_for nil, "/valider-commande", fn f -> %>
+									<input type="hidden" name="order_id" value={Plug.Conn.get_session(@conn, :current_order)}>
+									<button class="btn btn-sm btn-success w-100 mt-1" type="submit">Valider le panier</button>
+								<% end %>
+								<a href={Routes.cart_path(@conn, :index)} class="btn btn-primary btn-sm w-100 mt-2">Voir le panier</a>
 							</li>
 						<% else %>
 							<li class="text-center p-3">Votre panier est vide.</li>
@@ -302,7 +302,26 @@
 		</footer> -->
 	</body>
   
-<script>  
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dropdownToggle = document.getElementById("cartDropdown");
+    const dropdownMenu = dropdownToggle?.nextElementSibling;
+
+    if (dropdownToggle && dropdownMenu) {
+      dropdownToggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        dropdownMenu.classList.toggle("show");
+      });
+
+      // Optionnel : ferme le dropdown si on clique en dehors
+      document.addEventListener("click", function (event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+          dropdownMenu.classList.remove("show");
+        }
+      });
+    }
+  });
+
 document.addEventListener("DOMContentLoaded", function () {
 	const buttons = document.querySelectorAll(".toggle2-family");
 
